@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="If You Want to Know Me — Beyond the medals, beyond the resume, just the story.">
+  <title>If You Want to Know Me</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================
+       CSS Variables — 大地色系 + 金色點綴
+       ======================================== */
+    :root {
+      --color-bg:         #FBF7F2;   /* 米白 */
+      --color-surface:    #FFFFFF;
+      --color-warm-gray:  #E8E0D5;   /* 暖灰 */
+      --color-brown:      #5C4033;   /* 深棕 */
+      --color-brown-light:#8B7355;   /* 淺棕 */
+      --color-gold:       #C8963E;   /* 金色點綴 */
+      --color-gold-light: #E8D5B0;
+      --color-text:       #3A322C;
+      --color-text-light: #7A7068;
+      --color-border:     #E0D8CC;
+
+      --font-heading: 'Lora', 'Noto Serif SC', 'Times New Roman', serif;
+      --font-body:    'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+
+      --shadow-sm:  0 1px 3px rgba(92, 64, 51, 0.06);
+      --shadow-md:  0 4px 16px rgba(92, 64, 51, 0.08);
+      --shadow-lg:  0 8px 32px rgba(92, 64, 51, 0.10);
+
+      --transition-fast: 200ms ease;
+      --transition-base: 350ms ease;
+
+      --nav-height: 68px;
+      --max-width: 1080px;
+    }
+
+    /* ========================================
+       Reset & Base
+       ======================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px; line-height: 1.8;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; line-height: 1.3; color: var(--color-brown); }
+    a { color: var(--color-brown); text-decoration: none; transition: color var(--transition-fast); }
+    a:hover { color: var(--color-gold); }
+    img { max-width: 100%; height: auto; display: block; }
+    ul { list-style: none; }
+    button { font-family: var(--font-body); cursor: pointer; border: none; }
+
+    .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+
+    /* ========================================
+       Navigation — 固定頂部
+       ======================================== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height);
+      background: rgba(251, 247, 242, 0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      transition: box-shadow var(--transition-base);
+      border-bottom: 1px solid transparent;
+    }
+    .nav--scrolled { box-shadow: 0 2px 20px rgba(92, 64, 51, 0.08); border-bottom-color: var(--color-border); }
+    .nav__inner {
+      max-width: var(--max-width); height: 100%; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav__logo {
+      font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600;
+      color: var(--color-brown); letter-spacing: -0.01em;
+    }
+    .nav__links { display: flex; gap: 28px; }
+    .nav__links a {
+      font-size: 0.9rem; font-weight: 500; color: var(--color-text-light);
+      position: relative; padding: 4px 0;
+      transition: color var(--transition-fast);
+    }
+    .nav__links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--color-gold);
+      transition: width var(--transition-base);
+    }
+    .nav__links a:hover,
+    .nav__links a.nav__link--active { color: var(--color-brown); }
+    .nav__links a:hover::after,
+    .nav__links a.nav__link--active::after { width: 100%; }
+
+    /* Hamburger */
+    .nav__toggle { display: none; flex-direction: column; gap: 5px; background: none; padding: 4px; z-index: 1001; }
+    .nav__toggle span { display: block; width: 24px; height: 2px; background: var(--color-brown); border-radius: 2px; transition: all var(--transition-base); }
+    .nav__toggle--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__toggle--open span:nth-child(2) { opacity: 0; }
+    .nav__toggle--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ========================================
+       Hero Section
+       ======================================== */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: var(--nav-height) 24px 80px;
+      position: relative; overflow: hidden;
+      background: linear-gradient(175deg, #FBF7F2 0%, #F0E8DA 40%, #EBE0CE 100%);
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -60px; right: -80px;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(200, 150, 62, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero__photo {
+      width: 180px; height: 180px; border-radius: 50%; margin: 0 auto 32px;
+      background: var(--color-warm-gray); border: 3px solid var(--color-gold-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; color: var(--color-text-light); text-align: center;
+      line-height: 1.5; position: relative; z-index: 1;
+    }
+    .hero__content { position: relative; z-index: 1; max-width: 640px; }
+    .hero__title { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 700; color: var(--color-brown); margin-bottom: 16px; }
+    .hero__subtitle { font-size: 1.1rem; color: var(--color-text-light); font-style: italic; margin-bottom: 36px; line-height: 1.7; }
+    .hero__cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 36px; font-size: 1rem; font-weight: 600;
+      color: #fff; background: var(--color-brown);
+      border-radius: var(--radius-md); transition: all var(--transition-fast);
+    }
+    .hero__cta:hover { background: var(--color-gold); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(200, 150, 62, 0.3); color: #fff; }
+    .hero__scroll {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      color: var(--color-text-light); font-size: 0.75rem; letter-spacing: 0.08em;
+    }
+    .hero__scroll-icon { width: 22px; height: 22px; animation: bounce 2s ease infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+    /* ========================================
+       Section Common
+       ======================================== */
+    .section { padding: 80px 0; }
+    .section--alt { background: var(--color-surface); }
+    .section__header { text-align: center; margin-bottom: 56px; }
+    .section__label { display: inline-block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 8px; }
+    .section__title { font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--color-brown); margin-bottom: 12px; }
+    .section__divider { width: 40px; height: 3px; background: var(--color-gold); margin: 0 auto; border-radius: 2px; }
+
+    /* ========================================
+       About Me
+       ======================================== */
+    .about__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .about__photo {
+      aspect-ratio: 3/4; background: var(--color-warm-gray); border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; color: var(--color-text-light); text-align: center; line-height: 1.6;
+      padding: 24px;
+    }
+    .about__text h3 { font-size: 1.35rem; margin-bottom: 16px; }
+    .about__text p { color: var(--color-text-light); margin-bottom: 12px; }
+    .about__more { display: none; }
+    .about__more--open { display: block; }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 24px; font-size: 0.9rem; font-weight: 600;
+      color: var(--color-brown); background: transparent;
+      border: 2px solid var(--color-brown); border-radius: var(--radius-md);
+      transition: all var(--transition-fast); margin-top: 8px;
+    }
+    .btn-outline:hover { background: var(--color-brown); color: #fff; }
+
+    /* ========================================
+       Sports Achievements — 卡片區
+       ======================================== */
+    .sports__categories { display: grid; gap: 40px; }
+    .sports__category { background: var(--color-surface); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); }
+    .sports__cat-title { font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .sports__cat-icon { font-size: 1.4rem; }
+    .sports__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .sport-card {
+      background: var(--color-bg); border-radius: var(--radius-md); padding: 20px;
+      border-left: 4px solid var(--color-gold-light);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      cursor: pointer;
+    }
+    .sport-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .sport-card__medal { font-size: 1.8rem; margin-bottom: 8px; }
+    .sport-card__name { font-weight: 600; margin-bottom: 4px; font-size: 0.95rem; }
+    .sport-card__year { font-size: 0.8rem; color: var(--color-text-light); }
+    .sport-card__detail {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, margin-top 0.4s ease, opacity 0.3s ease;
+      opacity: 0; margin-top: 0;
+    }
+    .sport-card__detail--open { max-height: 200px; opacity: 1; margin-top: 12px; }
+    .sport-card__detail p { font-size: 0.85rem; color: var(--color-text-light); }
+    .sports__note {
+      margin-top: 32px; padding: 16px 24px; background: var(--color-gold-light);
+      border-radius: var(--radius-md); font-size: 0.9rem; color: var(--color-brown);
+      text-align: center; font-weight: 500;
+    }
+    .sports__photos {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 24px;
+    }
+
+    /* ========================================
+       Photo Placeholder
+       ======================================== */
+    .photo-placeholder {
+      background: var(--color-warm-gray); border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      aspect-ratio: 4/3; font-size: 0.8rem; color: var(--color-text-light);
+      text-align: center; line-height: 1.5; padding: 16px;
+      cursor: pointer; transition: opacity var(--transition-fast);
+      border: 2px dashed var(--color-border);
+    }
+    .photo-placeholder:hover { opacity: 0.75; }
+
+    /* ========================================
+       Lightbox
+       ======================================== */
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(58, 50, 44, 0.92);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 3000; opacity: 0; pointer-events: none;
+      transition: opacity var(--transition-base);
+    }
+    .lightbox--open { opacity: 1; pointer-events: auto; }
+    .lightbox__content {
+      max-width: 90vw; max-height: 85vh; position: relative;
+    }
+    .lightbox__img {
+      max-width: 90vw; max-height: 80vh; border-radius: var(--radius-md);
+      background: var(--color-warm-gray); min-width: 280px; min-height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: var(--color-text-light); padding: 48px; text-align: center;
+    }
+    .lightbox__caption { text-align: center; color: #fff; margin-top: 12px; font-size: 0.9rem; }
+    .lightbox__close {
+      position: absolute; top: -44px; right: 0;
+      width: 36px; height: 36px; background: rgba(255,255,255,0.15); color: #fff;
+      border-radius: 50%; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition-fast);
+    }
+    .lightbox__close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox__prev, .lightbox__next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; background: rgba(255,255,255,0.12); color: #fff;
+      border-radius: 50%; font-size: 1.3rem; display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition-fast);
+    }
+    .lightbox__prev:hover, .lightbox__next:hover { background: rgba(255,255,255,0.25); }
+    .lightbox__prev { left: -56px; }
+    .lightbox__next { right: -56px; }
+
+    /* ========================================
+       Camino Section
+       ======================================== */
+    .camino__map {
+      aspect-ratio: 16/7; background: var(--color-warm-gray); border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; color: var(--color-text-light); margin-bottom: 32px;
+      border: 2px dashed var(--color-border);
+    }
+    .camino__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
+    .camino__stat { text-align: center; padding: 24px; background: var(--color-surface); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+    .camino__stat-number { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--color-gold); }
+    .camino__stat-label { font-size: 0.85rem; color: var(--color-text-light); margin-top: 4px; }
+    .camino__skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+    .camino__skill { text-align: center; padding: 20px; background: var(--color-bg); border-radius: var(--radius-md); }
+    .camino__skill-icon { font-size: 2rem; margin-bottom: 8px; }
+    .camino__skill-name { font-weight: 600; font-size: 0.95rem; }
+    .camino__story { display: none; }
+    .camino__story--open { display: block; }
+    .camino__story p { color: var(--color-text-light); margin-bottom: 12px; }
+    .camino__photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 32px; }
+
+    /* ========================================
+       Interests Section
+       ======================================== */
+    .interests__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .interest-card {
+      background: var(--color-surface); border-radius: var(--radius-lg); padding: 32px;
+      box-shadow: var(--shadow-sm); cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      text-align: center;
+    }
+    .interest-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .interest-card__icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .interest-card__title { font-size: 1.15rem; margin-bottom: 8px; }
+    .interest-card__desc { font-size: 0.9rem; color: var(--color-text-light); }
+    .interest-card__more { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--color-border); text-align: left; }
+    .interest-card__more--open { display: block; }
+    .interest-card__more p { font-size: 0.88rem; color: var(--color-text-light); }
+    .interest-card__photo { margin-top: 16px; }
+
+    /* ========================================
+       Contact Section
+       ======================================== */
+    .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .contact__info { display: grid; gap: 20px; }
+    .contact__item { display: flex; align-items: flex-start; gap: 14px; padding: 18px; background: var(--color-surface); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+    .contact__item-icon { font-size: 1.4rem; flex-shrink: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--color-gold-light); border-radius: 50%; }
+    .contact__item-label { font-size: 0.8rem; color: var(--color-text-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .contact__item-value { font-weight: 500; color: var(--color-brown); }
+    .contact__social { display: flex; gap: 16px; margin-top: 8px; }
+    .contact__social a {
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+      background: var(--color-warm-gray); color: var(--color-brown); border-radius: 50%;
+      font-size: 1.1rem; transition: all var(--transition-fast);
+    }
+    .contact__social a:hover { background: var(--color-brown); color: #fff; }
+    .contact__form-wrapper {
+      background: var(--color-surface); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm);
+    }
+    .contact__form-wrapper h3 { margin-bottom: 20px; font-size: 1.2rem; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--color-brown); margin-bottom: 6px; }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 12px 16px; font-family: var(--font-body); font-size: 0.95rem;
+      border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+      background: var(--color-bg); color: var(--color-text);
+      transition: border-color var(--transition-fast); resize: vertical;
+    }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--color-gold); }
+    .form-submit {
+      width: 100%; padding: 14px; font-size: 1rem; font-weight: 600;
+      color: #fff; background: var(--color-brown); border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+    .form-submit:hover { background: var(--color-gold); }
+    .form-thanks { display: none; text-align: center; padding: 24px; }
+    .form-thanks--visible { display: block; }
+    .form-thanks__icon { font-size: 2.5rem; margin-bottom: 12px; }
+
+    /* ========================================
+       Footer
+       ======================================== */
+    .footer {
+      background: var(--color-brown); color: rgba(255,255,255,0.7);
+      padding: 40px 0; text-align: center; font-size: 0.85rem;
+    }
+    .footer a { color: var(--color-gold-light); }
+    .footer a:hover { color: #fff; }
+    .footer__social { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
+    .footer__social a { font-size: 1.2rem; }
+    .footer__links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; }
+    .footer__links span { opacity: 0.4; }
+
+    /* ========================================
+       Scroll Reveal
+       ======================================== */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal--visible { opacity: 1; transform: translateY(0); }
+
+    /* ========================================
+       Back to Top
+       ======================================== */
+    .back-to-top {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 44px; height: 44px; background: var(--color-brown); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transform: translateY(12px);
+      transition: all var(--transition-base); z-index: 900;
+      box-shadow: var(--shadow-md);
+    }
+    .back-to-top--visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .back-to-top:hover { background: var(--color-gold); }
+
+    /* ========================================
+       Responsive
+       ======================================== */
+    @media (max-width: 768px) {
+      :root { --nav-height: 64px; }
+      .nav__links {
+        position: fixed; inset: 0; flex-direction: column; align-items: center; justify-content: center;
+        gap: 36px; background: rgba(251, 247, 242, 0.97);
+        backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+        opacity: 0; pointer-events: none; transition: opacity var(--transition-base);
+      }
+      .nav__links--open { opacity: 1; pointer-events: auto; }
+      .nav__toggle { display: flex; }
+      .about__grid { grid-template-columns: 1fr; gap: 32px; }
+      .camino__stats { grid-template-columns: repeat(3, 1fr); }
+      .camino__skills { grid-template-columns: 1fr; }
+      .interests__grid { grid-template-columns: 1fr; }
+      .contact__grid { grid-template-columns: 1fr; }
+      .sports__grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .camino__stats { grid-template-columns: 1fr; }
+      .hero__title { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================
+       Navigation
+       ======================================== -->
+  <nav class="nav" id="nav" role="navigation" aria-label="主導航">
+    <div class="nav__inner">
+      <a href="#home" class="nav__logo">If You Want to Know Me</a>
+      <button class="nav__toggle" id="navToggle" aria-label="切換選單" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav__links" id="navLinks" role="menubar">
+        <a href="#about" role="menuitem">關於我</a>
+        <a href="#sports" role="menuitem">運動成就</a>
+        <a href="#camino" role="menuitem">朝聖之路</a>
+        <a href="#interests" role="menuitem">興趣</a>
+        <a href="#library" role="menuitem">My Library</a>
+        <a href="#contact" role="menuitem">聯絡</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================
+       Hero Section
+       ======================================== -->
+  <section class="hero" id="home">
+    <!-- 個人照片預留位置 -->
+    <div style="position: relative; z-index: 1;">
+      <div class="hero__photo" style="background: none; border: none; width: 200px; height: 200px; overflow: hidden;">
+        <img src="DSC_0630.JPG" alt="Alan" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid var(--color-gold-light);">
+      </div>
+      <div class="hero__content">
+        <h1 class="hero__title">If You Want to Know Me</h1>
+        <p class="hero__subtitle">Beyond the medals, beyond the resume – just the story.</p>
+        <a href="#about" class="hero__cta">開始認識我 ↓</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <svg class="hero__scroll-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      向下探索
+    </div>
+  </section>
+
+  <!-- ========================================
+       About Me
+       ======================================== -->
+  <section class="section section--alt" id="about">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">About</p>
+        <h2 class="section__title">關於我</h2>
+        <div class="section__divider"></div>
+      </div>
+      <div class="about__grid">
+        <!-- 個人照片預留位置 -->
+        <div class="about__photo reveal" style="background: none; border: none; overflow: hidden;">
+          <img src="DSC_1330.JPG" alt="Alan 個人照片" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg);">
+        </div>
+        <div class="about__text reveal">
+          <h3>你好，我是 Alan。</h3>
+          <p>香港大學理學士一年級學生，具備領導、活動統籌、補習、研究助理及餐飲服務經驗。曾協助統籌油尖旺區傑出學生活動、參與香港大學「幼兒教育研究」項目，並在客戶服務崗位上有良好表現。</p>
+          <p>自律、有分析能力，並具備良好的溝通能力。</p>
+          <!-- 閱讀更多 → 展開完整簡介 -->
+          <div class="about__more" id="aboutMore">
+            <p>我相信，一個人的價值不僅體現在成績單和獎牌上。我在跑道上學會了堅持，在朝聖之路上學會了謙卑，在每一次與人合作的過程中學會了溝通與同理心。</p>
+            <p>我的目標很簡單：持續成長，成為一個能在團隊中貢獻價值的人——無論是在學術研究、社會服務，還是日常工作中的每一個細節。</p>
+          </div>
+          <button class="btn-outline" id="aboutReadMore" aria-expanded="false">
+            閱讀更多 <span id="aboutArrow">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       Sports Achievements
+       ======================================== -->
+  <section class="section" id="sports">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">Achievements</p>
+        <h2 class="section__title">運動成就</h2>
+        <div class="section__divider"></div>
+      </div>
+
+      <div class="sports__categories">
+
+        <!-- 賽艇及室內划船 -->
+        <div class="sports__category reveal">
+          <h3 class="sports__cat-title">
+            <span class="sports__cat-icon">🚣</span> 賽艇及室內划船
+          </h3>
+          <div class="sports__grid">
+            <div class="sport-card" data-detail="2023 校際室內划船邀請賽中奪得冠軍，展現卓越的划船技術與體能。">
+              <div class="sport-card__medal">🥇</div>
+              <div class="sport-card__name">2023 校際室內划船邀請賽</div>
+              <div class="sport-card__year">冠軍 · 2023</div>
+              <div class="sport-card__detail"><p>2023 校際室內划船邀請賽中奪得冠軍，展現卓越的划船技術與體能。</p></div>
+            </div>
+            <div class="sport-card" data-detail="於2024香港校際賽艇錦標賽中獲得亞軍，與隊友緊密合作完成賽事。">
+              <div class="sport-card__medal">🥈</div>
+              <div class="sport-card__name">2024 香港校際賽艇錦標賽</div>
+              <div class="sport-card__year">亞軍 · 2024</div>
+              <div class="sport-card__detail"><p>於2024香港校際賽艇錦標賽中獲得亞軍，與隊友緊密合作完成賽事。</p></div>
+            </div>
+            <div class="sport-card" data-detail="在公開水域環境下完成比賽，獲得亞軍，展現出色的戶外水域適應力。">
+              <div class="sport-card__medal">🥈</div>
+              <div class="sport-card__name">2023 香港校際公開水域賽艇比賽</div>
+              <div class="sport-card__year">亞軍 · 2023</div>
+              <div class="sport-card__detail"><p>在公開水域環境下完成比賽，獲得亞軍，展現出色的戶外水域適應力。</p></div>
+            </div>
+            <div class="sport-card" data-detail="香港警察週年室內划船比賽中獲得亞軍，在競爭激烈的公開組別中脫穎而出。">
+              <div class="sport-card__medal">🥈</div>
+              <div class="sport-card__name">2024 香港警察週年室內划船比賽</div>
+              <div class="sport-card__year">亞軍 · 2024</div>
+              <div class="sport-card__detail"><p>香港警察週年室內划船比賽中獲得亞軍，在競爭激烈的公開組別中脫穎而出。</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 田徑及越野跑 -->
+        <div class="sports__category reveal">
+          <h3 class="sports__cat-title">
+            <span class="sports__cat-icon">🏃</span> 田徑及越野跑
+          </h3>
+          <div class="sports__grid">
+            <div class="sport-card" data-detail="於2023香港校際田徑比賽中獲得冠軍，展現全面的田徑實力。">
+              <div class="sport-card__medal">🥇</div>
+              <div class="sport-card__name">2023 香港校際田徑比賽</div>
+              <div class="sport-card__year">冠軍 · 2023</div>
+              <div class="sport-card__detail"><p>於2023香港校際田徑比賽中獲得冠軍，展現全面的田徑實力。</p></div>
+            </div>
+            <div class="sport-card" data-detail="在崎嶇地形中展現卓越耐力與速度，勇奪2024香港校際越野比賽冠軍。">
+              <div class="sport-card__medal">🥇</div>
+              <div class="sport-card__name">2024 香港校際越野比賽</div>
+              <div class="sport-card__year">冠軍 · 2024</div>
+              <div class="sport-card__detail"><p>在崎嶇地形中展現卓越耐力與速度，勇奪2024香港校際越野比賽冠軍。</p></div>
+            </div>
+            <div class="sport-card" data-detail="代表油尖旺區出戰分齡田徑比賽，奪得冠軍。">
+              <div class="sport-card__medal">🥇</div>
+              <div class="sport-card__name">2024 油尖旺區分齡田徑比賽</div>
+              <div class="sport-card__year">冠軍 · 2024</div>
+              <div class="sport-card__detail"><p>代表油尖旺區出戰分齡田徑比賽，奪得冠軍。</p></div>
+            </div>
+            <div class="sport-card" data-detail="國慶盃分齡田徑錦標賽中獲得亞軍，在全港級別賽事中表現出色。">
+              <div class="sport-card__medal">🥈</div>
+              <div class="sport-card__name">2023 國慶盃分齡田徑錦標賽</div>
+              <div class="sport-card__year">亞軍 · 2023</div>
+              <div class="sport-card__detail"><p>國慶盃分齡田徑錦標賽中獲得亞軍，在全港級別賽事中表現出色。</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 定向越野 -->
+        <div class="sports__category reveal">
+          <h3 class="sports__cat-title">
+            <span class="sports__cat-icon">🧭</span> 定向越野
+          </h3>
+          <div class="sports__grid">
+            <div class="sport-card" data-detail="於2024灣仔定向越野比賽中獲得冠軍，展示出色的地圖閱讀及路線規劃能力。">
+              <div class="sport-card__medal">🥇</div>
+              <div class="sport-card__name">2024 灣仔定向越野比賽</div>
+              <div class="sport-card__year">冠軍 · 2024</div>
+              <div class="sport-card__detail"><p>於2024灣仔定向越野比賽中獲得冠軍，展示出色的地圖閱讀及路線規劃能力。</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 備註 -->
+      <div class="sports__note reveal">
+        * 所有獎項均可提供官方證書證明
+      </div>
+
+      <!-- 獎牌/比賽照片預留位置 -->
+      <div class="sports__photos reveal">
+        <div data-lightbox="比賽獎項" style="cursor: pointer; border-radius: var(--radius-md); overflow: hidden; max-width: 600px;">
+          <img src="awards-photo.jpg" alt="比賽獎項" style="width: 100%; height: auto; display: block; border-radius: var(--radius-md);">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       The Camino — 朝聖之路
+       ======================================== -->
+  <section class="section section--alt" id="camino">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">The Camino</p>
+        <h2 class="section__title">朝聖之路 · Camino de Santiago</h2>
+        <div class="section__divider"></div>
+      </div>
+
+      <!-- 路線地圖 -->
+      <div class="camino__map reveal" style="background: none; border: none; overflow: hidden; border-radius: var(--radius-lg);">
+        <img src="Ways_of_St._James_in_Europe.png" alt="聖雅各之路歐洲路線圖" style="width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius-lg); background: #fff;">
+      </div>
+
+      <!-- 關鍵數據 -->
+      <div class="camino__stats reveal">
+        <div class="camino__stat">
+          <div class="camino__stat-number">400</div>
+          <div class="camino__stat-label">公里</div>
+        </div>
+        <div class="camino__stat">
+          <div class="camino__stat-number">15</div>
+          <div class="camino__stat-label">天</div>
+        </div>
+        <div class="camino__stat">
+          <div class="camino__stat-number">20-30</div>
+          <div class="camino__stat-label">每日公里</div>
+        </div>
+      </div>
+
+      <!-- 學到的能力 -->
+      <div class="camino__skills reveal">
+        <div class="camino__skill">
+          <div class="camino__skill-icon">💪</div>
+          <div class="camino__skill-name">抗壓能力</div>
+        </div>
+        <div class="camino__skill">
+          <div class="camino__skill-icon">🔄</div>
+          <div class="camino__skill-name">應變能力</div>
+        </div>
+        <div class="camino__skill">
+          <div class="camino__skill-icon">🎯</div>
+          <div class="camino__skill-name">堅持到底</div>
+        </div>
+      </div>
+
+      <!-- 文字描述 -->
+      <div class="reveal" style="text-align: center;">
+        <p style="color: var(--color-text-light); max-width: 640px; margin: 0 auto;">
+          2025年完成西班牙聖雅各之路（Camino de Santiago）葡萄牙沿海之路全程徒步——400公里，歷時約15天。每日背負約10公斤行李，步行20-30公里，面對身體疼痛、天氣變化及各種突發狀況。這段經歷培養了卓越的抗壓能力、應變能力與堅持到底的意志力。
+        </p>
+      </div>
+
+      <!-- 閱讀完整故事 -->
+      <div style="text-align: center; margin-top: 24px;" class="reveal">
+        <button class="btn-outline" id="caminoReadMore" aria-expanded="false">
+          閱讀完整故事 <span id="caminoArrow">↓</span>
+        </button>
+      </div>
+      <div class="camino__story reveal" id="caminoStory" style="max-width: 680px; margin: 24px auto 0;">
+        <p>第一天，我站在葡萄牙的 Porto，背著10公斤的背包，沿著大西洋海岸線向北出發。海風伴隨腳下的沙灘與礁石，第一段路程就給了我難忘的體驗——沿著海岸線徒步，風景壯麗卻也充滿挑戰。</p>
+        <p>接下來的每一天都是全新的體驗：水泡、肌肉酸痛、突如其來的海風與暴雨、語言不通。但也是每一天，都有陌生人對我說「Bom Caminho」，與我分享他們的食物、故事和鼓勵。</p>
+        <p>第15天，當我站在 Santiago de Compostela 大教堂前時，我意識到最重要的不是在終點的那一瞬間，而是這400公里中每一次選擇繼續前行的決定。</p>
+        <p>這段經歷教會了我一件事：困難從來不是阻礙，而是塑造你的工具。現在的我，面對任何挑戰都能冷靜地說：「我在Camino上走過更難的路——這不算什麼。」</p>
+      </div>
+
+      <!-- 沿途照片 -->
+      <div class="camino__photos reveal">
+        <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路起點 Porto" style="background-image: url('IMG_5351.jpg'); background-size: cover; background-position: center; border: none; color: transparent;">起點 Porto</div>
+        <div class="photo-placeholder" data-lightbox="沿途海岸風景" style="background-image: url('photo at camino peresonal website.JPG'); background-size: cover; background-position: center; border: none; color: transparent;">沿途海岸風景</div>
+        <div class="photo-placeholder" data-lightbox="朝聖之路打卡點" style="background-image: url('IMG_5689.jpg'); background-size: cover; background-position: center; border: none; color: transparent;">打卡點/里程碑</div>
+        <div class="photo-placeholder" data-lightbox="終點 Santiago 大教堂" style="background-image: url('IMG_5724.jpg'); background-size: cover; background-position: center; border: none; color: transparent;">終點 Santiago 大教堂</div>
+      </div>
+
+      <!-- 旅途見證 · Photo Gallery 展示區 -->
+      <div class="reveal" style="margin-top: 48px;">
+        <h3 style="text-align: center; font-size: 1.4rem; color: var(--color-brown); margin-bottom: 28px;">📷 旅途見證 · Photo Gallery</h3>
+
+        <!-- 大圖展示區 -->
+        <div class="camino__map reveal" style="background: none; border: none; aspect-ratio: 16/8; overflow: hidden; border-radius: var(--radius-lg); margin-bottom: 20px;">
+          <img src="IMG_5689.jpg" alt="葡萄牙沿海之路全景" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg);">
+        </div>
+
+        <!-- 照片網格展示 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px;">
+          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 海岸線" style="background-image: url('IMG_5351.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">海岸線景觀</div>
+          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 沿途小鎮" style="background-image: url('IMG_5543_2.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">沿途小鎮</div>
+          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 朝聖標誌" style="background-image: url('IMG_5724.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">朝聖標誌</div>
+          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 住宿掠影" style="background-image: url('sports-photo.JPG'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">住宿掠影</div>
+          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 每日足跡" style="background-image: url('DSC_1330.JPG'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">每日足跡</div>
+          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 旅程紀錄" style="background-image: url('DSC_0630.JPG'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">旅程紀錄</div>
+        </div>
+      </div>
+
+      <div class="sports__note reveal" style="margin-top: 24px;">
+        * 朝聖之路完成證書可提供官方文件以資證明
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       Interests
+       ======================================== -->
+  <section class="section" id="interests">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">Interests</p>
+        <h2 class="section__title">興趣</h2>
+        <div class="section__divider"></div>
+      </div>
+
+      <div class="interests__grid">
+
+        <!-- 閱讀 -->
+        <div class="interest-card reveal" id="interestReading">
+          <div class="interest-card__icon">📚</div>
+          <h3 class="interest-card__title">閱讀</h3>
+          <p class="interest-card__desc">推理、經典、政治寓言與投資智慧</p>
+          <div class="interest-card__more" id="interestReadingMore">
+            <p>我的閱讀世界橫跨東西、貫穿古今，從文學到哲學、從政治到投資，形成獨特的思維版圖。最愛東野圭吾的推理與人性探索、歐威爾的政治寓言、芒格的投資哲學，以及中國四大名著的宏大敘事。</p>
+            <p style="margin-top: 8px;"><a href="#library" style="color: var(--color-gold); font-weight: 600;">→ 瀏覽我的完整書庫 My Library</a></p>
+          </div>
+          <div class="interest-card__photo">
+            <div class="photo-placeholder" data-lightbox="書架/閱讀照片" style="background-image: url('reading-photo.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 16/10;">書架或閱讀相關</div>
+          </div>
+        </div>
+
+        <!-- 運動 -->
+        <div class="interest-card reveal" id="interestSports">
+          <div class="interest-card__icon">🏃‍♂️</div>
+          <h3 class="interest-card__title">運動</h3>
+          <p class="interest-card__desc">追逐破曉</p>
+          <div class="interest-card__more" id="interestSportsMore">
+            <p>每日跑步已成為生活的一部分——不只是一種鍛煉，更是一種冥想。無論晴天雨天，跑道都在那裡。賽艇則教會了我團隊合作的重要性：一艘艇上的每個人必須節奏一致，才能劃得快、劃得遠。這兩項運動塑造了我的紀律與韌性。</p>
+          </div>
+          <div class="interest-card__photo">
+            <div class="photo-placeholder" data-lightbox="跑步/賽艇照片" style="background-image: url('sport moment personal website-2.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 427/640; max-width: 300px; margin: 0 auto;">跑步或賽艇相關</div>
+          </div>
+        </div>
+
+        <!-- 背包旅行 -->
+        <div class="interest-card reveal" id="interestTravel">
+          <div class="interest-card__icon">🎒</div>
+          <h3 class="interest-card__title">背包旅行</h3>
+          <p class="interest-card__desc">戶外探索 · 獨立規劃</p>
+          <div class="interest-card__more" id="interestTravelMore">
+            <p>熱愛戶外探索，享受背起背包說走就走的自由。每一次旅行都是一次獨立的項目管理——規劃路線、預算控制、突發狀況應對。背包旅行教會我的不僅是如何看地圖，更是如何在陌生環境中保持冷靜和樂觀。</p>
+          </div>
+          <div class="interest-card__photo">
+            <div class="photo-placeholder" data-lightbox="旅行照片" style="background-image: url('backpack-photo.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 16/10;">旅行或戶外探險</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       My Library
+       ======================================== -->
+  <section class="section" id="library">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">My Library</p>
+        <h2 class="section__title">我的書庫</h2>
+        <div class="section__divider"></div>
+        <p class="section__desc" style="margin-top: 16px;">閱讀，是我認識世界的方式。從推理到經典、從政治寓言到投資哲學——每一本書，都是我思想版圖上的一塊拼圖。</p>
+      </div>
+
+      <!-- 東野圭吾 -->
+      <div class="sports__category reveal" style="margin-bottom: 24px;">
+        <h3 class="sports__cat-title">
+          <span class="sports__cat-icon">🔍</span> 東野圭吾｜推理與人性
+        </h3>
+        <p style="color: var(--color-text-light); line-height: 1.9; margin-bottom: 16px;">
+          最喜愛的作家是東野圭吾。從《嫌疑人X的獻身》到《解憂雜貨店》，他的作品不僅是推理小說，更是對人性深處的探索。我欣賞他層層遞進的敘事結構、縝密的邏輯佈局，以及對社會議題與人性掙扎的細膩刻畫。每一次閱讀都是一場智力與情感的雙重洗禮。
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;">
+          <div class="book-item"><div class="book-item__icon">📕</div><div class="book-item__title">《嫌疑人X的獻身》</div><div class="book-item__author">東野圭吾</div></div>
+          <div class="book-item"><div class="book-item__icon">📗</div><div class="book-item__title">《解憂雜貨店》</div><div class="book-item__author">東野圭吾</div></div>
+          <div class="book-item"><div class="book-item__icon">📘</div><div class="book-item__title">《白夜行》</div><div class="book-item__author">東野圭吾</div></div>
+        </div>
+      </div>
+
+      <!-- 喬治·歐威爾 -->
+      <div class="sports__category reveal" style="margin-bottom: 24px;">
+        <h3 class="sports__cat-title">
+          <span class="sports__cat-icon">⚠️</span> 喬治·歐威爾｜政治寓言與思想警鐘
+        </h3>
+        <p style="color: var(--color-text-light); line-height: 1.9; margin-bottom: 16px;">
+          歐威爾的作品如《1984》與《動物農莊》，以犀利的筆鋒揭示權力與語言的危險關係。他教會我：<strong style="color: var(--color-brown);">「誰控制過去，誰就控制未來；誰控制現在，誰就控制過去。」</strong>在資訊爆炸的時代，歐威爾的警惕比任何時候都更具現實意義——保持獨立思考，是每個人最重要的責任。
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;">
+          <div class="book-item"><div class="book-item__icon">📙</div><div class="book-item__title">《1984》</div><div class="book-item__author">George Orwell</div></div>
+          <div class="book-item"><div class="book-item__icon">📓</div><div class="book-item__title">《動物農莊》</div><div class="book-item__author">George Orwell</div></div>
+        </div>
+      </div>
+
+      <!-- 查理·芒格 -->
+      <div class="sports__category reveal" style="margin-bottom: 24px;">
+        <h3 class="sports__cat-title">
+          <span class="sports__cat-icon">💡</span> 查理·芒格｜《窮查理寶典》· 投資哲學與人生智慧
+        </h3>
+        <p style="color: var(--color-text-light); line-height: 1.9; margin-bottom: 16px;">
+          巴菲特摯友、波克夏副董事長查理·芒格的《窮查理寶典》，是我思維模型的重要啟蒙。芒格強調<strong style="color: var(--color-brown);">「多元思維模型」（Latticework of Mental Models）</strong>——從心理學、經濟學、物理學、生物學等不同學科汲取智慧，避免單一視角的偏見。
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 16px;">
+          <div style="background: var(--color-bg); padding: 18px; border-radius: var(--radius-md); border-left: 3px solid var(--color-gold);">
+            <strong style="color: var(--color-brown);">「反過來想，總是反過來想」</strong>
+            <p style="color: var(--color-text-light); font-size: 0.88rem; margin-top: 4px;">Invert, always invert — 解決問題的最佳方式，往往是先思考「如何避免失敗」</p>
+          </div>
+          <div style="background: var(--color-bg); padding: 18px; border-radius: var(--radius-md); border-left: 3px solid var(--color-gold);">
+            <strong style="color: var(--color-brown);">「在能力圈內做事」</strong>
+            <p style="color: var(--color-text-light); font-size: 0.88rem; margin-top: 4px;">Stay within your circle of competence — 清楚知道自己懂什麼、不懂什麼</p>
+          </div>
+          <div style="background: var(--color-bg); padding: 18px; border-radius: var(--radius-md); border-left: 3px solid var(--color-gold);">
+            <strong style="color: var(--color-brown);">「耐心是最被低估的美德」</strong>
+            <p style="color: var(--color-text-light); font-size: 0.88rem; margin-top: 4px;">長期主義才是真正價值的來源</p>
+          </div>
+        </div>
+        <p style="color: var(--color-text-light); line-height: 1.9;">
+          芒格的思想不僅適用於投資，更是一種人生決策的哲學，與我在運動場上學到的紀律與堅持相互呼應。
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-top: 16px;">
+          <div class="book-item"><div class="book-item__icon">📔</div><div class="book-item__title">《窮查理寶典》</div><div class="book-item__author">Charlie Munger</div></div>
+        </div>
+      </div>
+
+      <!-- 中國四大名著 -->
+      <div class="sports__category reveal">
+        <h3 class="sports__cat-title">
+          <span class="sports__cat-icon">🏮</span> 中國四大名著｜古典文學的智慧寶庫
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px;">
+          <div style="background: var(--color-bg); padding: 20px; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 8px;">🏯</div>
+            <strong style="color: var(--color-brown);">《紅樓夢》</strong>
+            <p style="color: var(--color-text-light); font-size: 0.88rem; margin-top: 4px;">體會大觀園中的人情冷暖與命運無常</p>
+          </div>
+          <div style="background: var(--color-bg); padding: 20px; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 8px;">⚔️</div>
+            <strong style="color: var(--color-brown);">《三國演義》</strong>
+            <p style="color: var(--color-text-light); font-size: 0.88rem; margin-top: 4px;">欣賞謀略、領導與忠義的複雜交織</p>
+          </div>
+          <div style="background: var(--color-bg); padding: 20px; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 8px;">🏔️</div>
+            <strong style="color: var(--color-brown);">《水滸傳》</strong>
+            <p style="color: var(--color-text-light); font-size: 0.88rem; margin-top: 4px;">感受兄弟情義與對不公的反抗精神</p>
+          </div>
+          <div style="background: var(--color-bg); padding: 20px; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 8px;">🐵</div>
+            <strong style="color: var(--color-brown);">《西遊記》</strong>
+            <p style="color: var(--color-text-light); font-size: 0.88rem; margin-top: 4px;">領悟堅持、合作與成長的寓言</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 閱讀結語 -->
+      <div class="sports__note reveal" style="margin-top: 36px;">
+        從東野圭吾的推理、歐威爾的政治警鐘、芒格的投資哲學，到四大名著的宏大敘事——閱讀不僅豐富了我的知識，更塑造了我的批判性思維、決策框架與對人性的多維理解。每一本書，都是我思想版圖上的一塊拼圖。
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       Contact
+       ======================================== -->
+  <section class="section section--alt" id="contact">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">Contact</p>
+        <h2 class="section__title">聯絡我</h2>
+        <div class="section__divider"></div>
+      </div>
+
+      <div class="contact__grid">
+        <!-- 聯絡資訊 -->
+        <div class="contact__info reveal">
+          <div class="contact__item">
+            <div class="contact__item-icon">📞</div>
+            <div>
+              <div class="contact__item-label">電話</div>
+              <div class="contact__item-value">65484063</div>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__item-icon">✉️</div>
+            <div>
+              <div class="contact__item-label">電郵</div>
+              <div class="contact__item-value">wangkwa2007@gmail.com</div>
+            </div>
+          </div>
+<!-- 社交媒體連結預留 -->
+          <div class="contact__social">
+            <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram" style="display: inline-flex; align-items: center; justify-content: center;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="https://wa.me/85265484063" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp: 65484063" style="display: inline-flex; align-items: center; justify-content: center;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+            <a href="mailto:wangkwa2007@gmail.com" aria-label="Gmail" title="wangkwa2007@gmail.com" style="display: inline-flex; align-items: center; justify-content: center;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#EA4335"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 聯絡表單 -->
+        <div class="contact__form-wrapper reveal" id="contactFormWrapper">
+          <h3>發送訊息</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="contactName">姓名</label>
+              <input type="text" id="contactName" placeholder="你的名字" required>
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">你的電郵</label>
+              <input type="email" id="contactEmail" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="contactMsg">訊息內容</label>
+              <textarea id="contactMsg" rows="4" placeholder="寫下你想說的話..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit">發送訊息</button>
+          </form>
+          <div class="form-thanks" id="formThanks">
+            <div class="form-thanks__icon">✨</div>
+            <h3>感謝你的訊息！</h3>
+            <p style="color: var(--color-text-light); margin-top: 8px;">我會盡快回覆。期待與你聯繫。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       Footer
+       ======================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__social">
+        <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram" style="display: inline-flex; align-items: center; justify-content: center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://wa.me/85265484063" target="_blank" rel="noopener" aria-label="WhatsApp" style="display: inline-flex; align-items: center; justify-content: center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="mailto:wangkwa2007@gmail.com" aria-label="Gmail" style="display: inline-flex; align-items: center; justify-content: center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#EA4335"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+        </a>
+      </div>
+      <div class="footer__links">
+        <a href="#about">關於我</a><span>·</span>
+        <a href="#sports">運動成就</a><span>·</span>
+        <a href="#camino">朝聖之路</a><span>·</span>
+        <a href="#interests">興趣</a><span>·</span>
+        <a href="#library">My Library</a><span>·</span>
+        <a href="#contact">聯絡</a>
+      </div>
+      <p>If You Want to Know Me &copy; 2026</p>
+    </div>
+  </footer>
+
+  <!-- ========================================
+       Lightbox
+       ======================================== -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox__content">
+      <button class="lightbox__close" id="lightboxClose" aria-label="關閉">✕</button>
+      <button class="lightbox__prev" id="lightboxPrev" aria-label="上一張">‹</button>
+      <button class="lightbox__next" id="lightboxNext" aria-label="下一張">›</button>
+      <div class="lightbox__img" id="lightboxImg">
+        <!-- 照片預留位置在 JS 中動態生成 -->
+      </div>
+      <p class="lightbox__caption" id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <!-- ========================================
+       Back to Top
+       ======================================== -->
+  <button class="back-to-top" id="backToTop" aria-label="返回頂部">↑</button>
+
+  <!-- ========================================
+       JavaScript
+       ======================================== -->
+  <script>
+  (function () {
+    'use strict';
+
+    /* ==================== DOM 引用 ==================== */
+    const nav        = document.getElementById('nav');
+    const navToggle  = document.getElementById('navToggle');
+    const navLinks   = document.getElementById('navLinks');
+    const backToTop  = document.getElementById('backToTop');
+    const allNavA    = navLinks.querySelectorAll('a');
+    const lightbox   = document.getElementById('lightbox');
+    const lbImg      = document.getElementById('lightboxImg');
+    const lbCaption  = document.getElementById('lightboxCaption');
+
+    /* ==================== 導航：手機漢堡選單 ==================== */
+    navToggle.addEventListener('click', function () {
+      const isOpen = navLinks.classList.toggle('nav__links--open');
+      navToggle.classList.toggle('nav__toggle--open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    allNavA.forEach(function (a) {
+      a.addEventListener('click', function () {
+        navLinks.classList.remove('nav__links--open');
+        navToggle.classList.remove('nav__toggle--open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    /* ==================== 導航：滾動陰影 & Active 狀態 ==================== */
+    let sections = [];
+    let navH = nav.offsetHeight;
+
+    function collectSections() {
+      navH = nav.offsetHeight;
+      sections = [];
+      allNavA.forEach(function (a) {
+        const id = a.getAttribute('href');
+        if (id && id.startsWith('#') && id.length > 1) {
+          const el = document.getElementById(id.substring(1));
+          if (el) sections.push({ hash: id, el: el });
+        }
+      });
+    }
+    collectSections();
+
+    function onScroll() {
+      const y = window.scrollY;
+      nav.classList.toggle('nav--scrolled', y > 20);
+
+      let cur = sections[0];
+      for (let i = 0; i < sections.length; i++) {
+        if (sections[i].el.offsetTop - navH - 20 <= y) cur = sections[i];
+      }
+      allNavA.forEach(function (a) {
+        a.classList.toggle('nav__link--active', a.getAttribute('href') === cur.hash);
+      });
+
+      const winH = window.innerHeight;
+      const docH = document.documentElement.scrollHeight;
+      backToTop.classList.toggle('back-to-top--visible', y > winH * 0.6 && y + winH < docH - 120);
+    }
+
+    /* ==================== Scroll Reveal ==================== */
+    function onReveal() {
+      const reveals = document.querySelectorAll('.reveal:not(.reveal--visible)');
+      const winH = window.innerHeight;
+      for (let i = 0; i < reveals.length; i++) {
+        if (reveals[i].getBoundingClientRect().top < winH * 0.9) {
+          reveals[i].classList.add('reveal--visible');
+        }
+      }
+    }
+
+    function onScrollAll() { onScroll(); onReveal(); }
+    window.addEventListener('scroll', onScrollAll, { passive: true });
+    backToTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    let resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () { collectSections(); onScroll(); }, 150);
+    });
+
+    /* ==================== 關於我：閱讀更多 ==================== */
+    const aboutMore  = document.getElementById('aboutMore');
+    const aboutBtn   = document.getElementById('aboutReadMore');
+    const aboutArrow = document.getElementById('aboutArrow');
+
+    aboutBtn.addEventListener('click', function () {
+      const isOpen = aboutMore.classList.toggle('about__more--open');
+      aboutBtn.setAttribute('aria-expanded', isOpen);
+      aboutArrow.textContent = isOpen ? '↑' : '→';
+      aboutBtn.childNodes[0].textContent = isOpen ? '收起 ' : '閱讀更多 ';
+    });
+
+    /* ==================== 運動成就：展開詳情 ==================== */
+    document.querySelectorAll('.sport-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        const detail = card.querySelector('.sport-card__detail');
+        detail.classList.toggle('sport-card__detail--open');
+      });
+    });
+
+    /* ==================== 朝聖之路：閱讀完整故事 ==================== */
+    const caminoStory  = document.getElementById('caminoStory');
+    const caminoBtn    = document.getElementById('caminoReadMore');
+    const caminoArrow  = document.getElementById('caminoArrow');
+
+    caminoBtn.addEventListener('click', function () {
+      const isOpen = caminoStory.classList.toggle('camino__story--open');
+      caminoBtn.setAttribute('aria-expanded', isOpen);
+      caminoArrow.textContent = isOpen ? '↑' : '↓';
+    });
+
+    /* ==================== 興趣：點擊展開更多 ==================== */
+    const interestCards = [
+      { card: document.getElementById('interestReading'), more: document.getElementById('interestReadingMore') },
+      { card: document.getElementById('interestSports'), more: document.getElementById('interestSportsMore') },
+      { card: document.getElementById('interestTravel'), more: document.getElementById('interestTravelMore') },
+    ];
+
+    interestCards.forEach(function (item) {
+      item.card.addEventListener('click', function () {
+        item.more.classList.toggle('interest-card__more--open');
+      });
+    });
+
+    /* ==================== 聯絡表單 ==================== */
+    const contactForm  = document.getElementById('contactForm');
+    const formThanks   = document.getElementById('formThanks');
+
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      contactForm.style.display = 'none';
+      formThanks.classList.add('form-thanks--visible');
+    });
+
+    /* ==================== Lightbox 燈箱 ==================== */
+    let lightboxItems = [];
+    let lightboxIndex = 0;
+
+    // 收集所有可點擊的 lightbox 項目
+    function collectLightboxItems() {
+      lightboxItems = Array.from(document.querySelectorAll('[data-lightbox]'));
+    }
+    collectLightboxItems();
+
+    // 點擊 → 打開燈箱
+    document.addEventListener('click', function (e) {
+      const target = e.target.closest('[data-lightbox]');
+      if (!target) return;
+      const idx = lightboxItems.indexOf(target);
+      if (idx === -1) return;
+      lightboxIndex = idx;
+      showLightbox(lightboxIndex);
+    });
+
+    function showLightbox(idx) {
+      const item = lightboxItems[idx];
+      if (!item) return;
+      const caption = item.getAttribute('data-lightbox') || '';
+
+      // Check for <img> tag inside the element
+      const imgTag = item.querySelector('img');
+      if (imgTag) {
+        const src = imgTag.getAttribute('src');
+        lbImg.innerHTML = '<img src="' + src + '" alt="' + caption + '" style="max-width: 85vw; max-height: 75vh; border-radius: var(--radius-md);">';
+        lbImg.style.background = 'none';
+        lbImg.style.padding = '0';
+        lbImg.style.minWidth = 'auto';
+        lbImg.style.minHeight = 'auto';
+      }
+      // Check if the placeholder has a background image
+      else if (item.style.backgroundImage && item.style.backgroundImage !== 'none') {
+        const url = item.style.backgroundImage.replace(/url\(['"]?([^'"]*)['"]?\)/, '$1');
+        lbImg.innerHTML = '<img src="' + url + '" alt="' + caption + '" style="max-width: 85vw; max-height: 75vh; border-radius: var(--radius-md);">';
+        lbImg.style.background = 'none';
+        lbImg.style.padding = '0';
+        lbImg.style.minWidth = 'auto';
+        lbImg.style.minHeight = 'auto';
+      } else {
+        lbImg.innerHTML = '';
+        lbImg.style.background = '';
+        lbImg.style.padding = '48px';
+        lbImg.style.minWidth = '280px';
+        lbImg.style.minHeight = '200px';
+        lbImg.textContent = caption;
+      }
+      lbCaption.textContent = caption;
+      lightbox.classList.add('lightbox--open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('lightbox--open');
+      document.body.style.overflow = '';
+    }
+
+    function prevLightbox() {
+      lightboxIndex = (lightboxIndex - 1 + lightboxItems.length) % lightboxItems.length;
+      showLightbox(lightboxIndex);
+    }
+
+    function nextLightbox() {
+      lightboxIndex = (lightboxIndex + 1) % lightboxItems.length;
+      showLightbox(lightboxIndex);
+    }
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', prevLightbox);
+    document.getElementById('lightboxNext').addEventListener('click', nextLightbox);
+
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!lightbox.classList.contains('lightbox--open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevLightbox();
+      if (e.key === 'ArrowRight') nextLightbox();
+    });
+
+    /* ==================== 初始化 ==================== */
+    onScroll();
+    onReveal();
+  })();
+  </script>
+
+</body>
+</html>
