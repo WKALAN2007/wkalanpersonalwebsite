@@ -1208,20 +1208,11 @@
     });
 
     /* ==================== 初始化 ==================== */
-    // Prevent browser from restoring old scroll position on refresh
+    // Always start at the top on page load
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    // Scroll to hash or top
-    var hash = window.location.hash;
-    if (hash) {
-      var target = document.getElementById(hash.substring(1));
-      if (target) {
-        setTimeout(function () { target.scrollIntoView(); }, 50);
-      }
-    } else {
-      window.scrollTo(0, 0);
-    }
+    window.scrollTo(0, 0);
     onScroll();
     onReveal();
   })();
