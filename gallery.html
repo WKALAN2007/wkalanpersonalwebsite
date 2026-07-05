@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>旅途時光 · Camino de Santiago</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-bg:         #FBF7F2;
+      --color-surface:    #FFFFFF;
+      --color-warm-gray:  #E8E0D5;
+      --color-brown:      #5C4033;
+      --color-brown-light:#8B7355;
+      --color-gold:       #C8963E;
+      --color-gold-light: #E8D5B0;
+      --color-text:       #3A322C;
+      --color-text-light: #7A7068;
+      --color-border:     #E0D8CC;
+      --font-heading: 'Lora', 'Noto Serif SC', 'Times New Roman', serif;
+      --font-body:    'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+      --shadow-sm:  0 1px 3px rgba(92, 64, 51, 0.06);
+      --shadow-md:  0 4px 16px rgba(92, 64, 51, 0.08);
+      --nav-height: 64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px; line-height: 1.8;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+    }
+    h1, h2, h3 { font-family: var(--font-heading); font-weight: 600; line-height: 1.3; color: var(--color-brown); }
+    a { color: var(--color-brown); text-decoration: none; transition: color 200ms ease; }
+    a:hover { color: var(--color-gold); }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height);
+      background: rgba(251, 247, 242, 0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      z-index: 1000; border-bottom: 1px solid var(--color-border);
+      display: flex; align-items: center;
+    }
+    .nav__inner {
+      max-width: 1000px; width: 100%; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav__logo {
+      font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600;
+      color: var(--color-brown);
+    }
+    .nav__back {
+      font-size: 0.9rem; font-weight: 500; color: var(--color-text-light);
+      display: flex; align-items: center; gap: 6px; transition: color 200ms ease;
+    }
+    .nav__back:hover { color: var(--color-brown); }
+
+    /* Header */
+    .header {
+      padding: calc(var(--nav-height) + 60px) 0 48px;
+      text-align: center;
+    }
+    .header__label { display: inline-block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 8px; }
+    .header__title { font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--color-brown); margin-bottom: 8px; }
+    .header__divider { width: 40px; height: 3px; background: var(--color-gold); margin: 0 auto 16px; border-radius: 2px; }
+    .header__desc { color: var(--color-text-light); max-width: 500px; margin: 0 auto; font-size: 0.95rem; }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding: 0 0 80px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--color-gold-light), var(--color-gold), var(--color-gold-light));
+      border-radius: 2px;
+    }
+    .timeline__start {
+      text-align: center; margin-bottom: 40px;
+      position: relative; z-index: 1;
+    }
+    .timeline__start-dot {
+      width: 20px; height: 20px; background: var(--color-gold);
+      border-radius: 50%; margin: 0 auto 12px;
+      box-shadow: 0 0 0 6px rgba(200, 150, 62, 0.15);
+    }
+    .timeline__start-label {
+      font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600;
+      color: var(--color-brown);
+    }
+
+    /* Timeline Item */
+    .tl-item {
+      display: flex; align-items: flex-start;
+      margin-bottom: 56px; position: relative;
+    }
+    .tl-item__side {
+      width: calc(50% - 20px);
+    }
+    .tl-item__card {
+      width: 100%;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 250ms ease, box-shadow 250ms ease;
+    }
+    .tl-item__card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .tl-item__photo {
+      width: 100%; aspect-ratio: 4/3;
+      object-fit: cover; display: block;
+    }
+    .tl-item__info {
+      padding: 16px 20px;
+    }
+    .tl-item__day {
+      font-family: var(--font-heading); font-size: 1rem; font-weight: 700;
+      color: var(--color-gold);
+    }
+    .tl-item__desc {
+      font-size: 0.85rem; color: var(--color-text-light); margin-top: 2px;
+    }
+
+    /* Timeline Dot */
+    .tl-item__dot-wrap {
+      width: 40px; flex-shrink: 0;
+      display: flex; justify-content: center; padding-top: 8px;
+      position: relative; z-index: 1;
+    }
+    .tl-item__dot {
+      width: 16px; height: 16px;
+      background: var(--color-surface);
+      border: 3px solid var(--color-gold);
+      border-radius: 50%;
+      transition: background 250ms ease;
+    }
+
+    /* Timeline End */
+    .timeline__end {
+      text-align: center; position: relative; z-index: 1;
+    }
+    .timeline__end-dot {
+      width: 28px; height: 28px; background: var(--color-gold);
+      border-radius: 50%; margin: 0 auto 12px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 8px rgba(200, 150, 62, 0.12);
+    }
+    .timeline__end-icon { font-size: 1rem; }
+    .timeline__end-label {
+      font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700;
+      color: var(--color-brown);
+    }
+    .timeline__end-sub {
+      font-size: 0.9rem; color: var(--color-text-light); margin-top: 4px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(58, 50, 44, 0.94);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 3000; opacity: 0; pointer-events: none;
+      transition: opacity 350ms ease;
+    }
+    .lightbox--open { opacity: 1; pointer-events: auto; }
+    .lightbox__content { position: relative; display: flex; align-items: center; justify-content: center; }
+    .lightbox__img { max-width: 90vw; max-height: 80vh; border-radius: var(--radius-md); object-fit: contain; }
+    .lightbox__close {
+      position: absolute; top: -48px; right: 0;
+      width: 40px; height: 40px; background: rgba(255,255,255,0.15); color: #fff;
+      border-radius: 50%; font-size: 1.3rem; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border: none; transition: background 200ms ease;
+    }
+    .lightbox__close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox__prev, .lightbox__next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; background: rgba(255,255,255,0.12); color: #fff;
+      border-radius: 50%; font-size: 1.4rem; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border: none; transition: background 200ms ease;
+    }
+    .lightbox__prev:hover, .lightbox__next:hover { background: rgba(255,255,255,0.25); }
+    .lightbox__prev { left: -56px; }
+    .lightbox__next { right: -56px; }
+    .lightbox__counter {
+      position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.7); font-size: 0.85rem;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center; padding: 40px 0;
+      border-top: 1px solid var(--color-border);
+      font-size: 0.85rem; color: var(--color-text-light);
+    }
+    .footer a { color: var(--color-brown); }
+    .footer a:hover { color: var(--color-gold); }
+
+    @media (max-width: 768px) {
+      .timeline::before { left: 24px; }
+      .tl-item { margin-bottom: 40px; }
+      .tl-item__side:first-child { display: none; }
+      .tl-item__side:last-child { width: calc(100% - 44px); }
+      .tl-item__dot-wrap { width: 32px; flex-shrink: 0; }
+      .timeline__start, .timeline__end { text-align: left; padding-left: 24px; }
+      .lightbox__prev { left: 8px; }
+      .lightbox__next { right: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">If You Want to Know Me</a>
+      <a href="index.html#camino" class="nav__back">← 返回主頁</a>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="header">
+    <p class="header__label">The Journey</p>
+    <h1 class="header__title">旅途時光 · Camino de Santiago</h1>
+    <div class="header__divider"></div>
+    <p class="header__desc">31 個沿途瞬間 — 從 Porto 出發，沿大西洋海岸線，一步步走向 Santiago</p>
+  </div>
+
+  <!-- Timeline -->
+  <div class="container">
+    <div class="timeline" id="timeline">
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p><a href="index.html">← 返回主頁</a> · Bom Caminho</p>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox__content">
+      <button class="lightbox__close" id="lightboxClose">✕</button>
+      <button class="lightbox__prev" id="lightboxPrev">‹</button>
+      <button class="lightbox__next" id="lightboxNext">›</button>
+      <img class="lightbox__img" id="lightboxImg" src="" alt="">
+      <div class="lightbox__counter" id="lightboxCounter"></div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var total = 31;
+    var currentIndex = 0;
+    var timeline = document.getElementById('timeline');
+
+    var stageLabels = [
+      '起點 · Porto 出發', '大西洋海岸線', '沿海小徑', '第一枚黃箭頭',
+      '途中補給站', '午後陽光', '小鎮教堂', '朝聖者驛站',
+      '森林小徑', '古羅馬橋', '田野風光', '海風與浪聲',
+      '村庄晨曦', '路標與貝殼', '石頭古道', '午休片刻',
+      '山丘遠眺', '彩虹之後', '同行朝聖者', '古老石十字架',
+      '葡萄園之路', '夕陽下的麥田', '最後一百公里', '雨中的堅持',
+      'Eucalyptus 森林', '晨霧中的出發', '里程碑 · 50km', 'Galicia 風情',
+      '距離 Santiago 還有 20km', '抵達前的最後一程', '終點 · Santiago 大教堂'
+    ];
+
+    // Build start marker
+    var start = document.createElement('div');
+    start.className = 'timeline__start';
+    start.innerHTML = '<div class="timeline__start-dot"></div><div class="timeline__start-label">Porto · 旅程起點</div>';
+    timeline.appendChild(start);
+
+    function toFilename(num, label) {
+      return num + '-' + label.replace(/[ ·\/]/g, '-') + '.jpg';
+    }
+
+    // Build timeline items
+    for (var i = 1; i <= total; i++) {
+      var num = i < 10 ? '0' + i : '' + i;
+      var isLeft = i % 2 === 1;
+      var label = stageLabels[i - 1] || ('第 ' + i + ' 站');
+      var fileName = toFilename(num, label);
+
+      var cardHTML =
+        '<div class="tl-item__card">' +
+          '<img class="tl-item__photo" src="gallery-full/' + encodeURI(fileName) + '" alt="' + label + '" loading="lazy">' +
+          '<div class="tl-item__info">' +
+            '<div class="tl-item__day">' + label + '</div>' +
+            '<div class="tl-item__desc">第 ' + i + ' / ' + total + ' 張</div>' +
+          '</div>' +
+        '</div>';
+
+      var dotHTML = '<div class="tl-item__dot-wrap"><div class="tl-item__dot"></div></div>';
+
+      var item = document.createElement('div');
+      item.className = 'tl-item';
+      item.setAttribute('data-index', i - 1);
+
+      if (isLeft) {
+        // Left: card — dot — empty
+        item.innerHTML =
+          '<div class="tl-item__side">' + cardHTML + '</div>' +
+          dotHTML +
+          '<div class="tl-item__side"></div>';
+      } else {
+        // Right: empty — dot — card
+        item.innerHTML =
+          '<div class="tl-item__side"></div>' +
+          dotHTML +
+          '<div class="tl-item__side">' + cardHTML + '</div>';
+      }
+
+      item.querySelector('.tl-item__card').addEventListener('click', function () {
+        openLightbox(parseInt(this.closest('.tl-item').getAttribute('data-index')));
+      });
+      timeline.appendChild(item);
+    }
+
+    // Build end marker
+    var end = document.createElement('div');
+    end.className = 'timeline__end';
+    end.innerHTML = '<div class="timeline__end-dot"><span class="timeline__end-icon">&#10013;</span></div><div class="timeline__end-label">Santiago de Compostela</div><div class="timeline__end-sub">400 公里 · 15 天 · 一段永不褪色的記憶</div>';
+    timeline.appendChild(end);
+
+    // Lightbox
+    var lightbox = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightboxImg');
+    var lbCounter = document.getElementById('lightboxCounter');
+
+    function openLightbox(idx) {
+      currentIndex = idx;
+      showImage();
+      lightbox.classList.add('lightbox--open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('lightbox--open');
+      document.body.style.overflow = '';
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + total) % total;
+      showImage();
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % total;
+      showImage();
+    }
+
+    function showImage() {
+      var num = currentIndex + 1;
+      var numStr = num < 10 ? '0' + num : '' + num;
+      var label = stageLabels[currentIndex];
+      var fileName = toFilename(numStr, label);
+      lbImg.src = 'gallery-full/' + encodeURI(fileName);
+      lbImg.alt = label;
+      lbCounter.textContent = (currentIndex + 1) + ' / ' + total + ' — ' + label;
+    }
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', prevImage);
+    document.getElementById('lightboxNext').addEventListener('click', nextImage);
+    lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lightbox.classList.contains('lightbox--open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'ArrowRight') nextImage();
+    });
+  })();
+  </script>
+
+</body>
+</html>

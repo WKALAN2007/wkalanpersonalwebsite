@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>朝聖之路 Camino de Santiago — 照片時間軸</title>
+<style>
+  :root {
+    --brown: #5C4033;
+    --brown-dark: #3A2820;
+    --brown-light: #f2ede8;
+    --gold: #C8963E;
+    --gold-light: #f5ecd7;
+    --text: #3A322C;
+    --text-light: #7A7068;
+    --bg: #FBF7F2;
+    --card-bg: #ffffff;
+    --line: #E0D8CC;
+    --warm-gray: #E8E0D5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "Noto Serif TC", "Songti TC", "STSong", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    overflow-x: hidden;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(175deg, #FBF7F2 0%, #F0E8DA 40%, #EBE0CE 100%);
+    color: var(--text);
+    padding: 2rem;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 80%, rgba(200,150,62,.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 20%, rgba(92,64,51,.06) 0%, transparent 50%);
+  }
+  .hero .shell-icon {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+    animation: float 3s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    position: relative;
+    z-index: 1;
+  }
+  .hero .subtitle {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    margin-top: 0.8rem;
+    letter-spacing: 0.08em;
+    position: relative;
+    z-index: 1;
+  }
+  .hero .route {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.25rem 1rem;
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    color: var(--gold);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    position: relative;
+    z-index: 1;
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s ease-in-out infinite;
+    z-index: 1;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ── Progress Bar ── */
+  .progress-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.8rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .progress-wrap .label-start,
+  .progress-wrap .label-end {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--brown);
+    white-space: nowrap;
+    min-width: 2.5rem;
+  }
+  .progress-wrap .label-end { text-align: right; }
+  .progress-track {
+    flex: 1;
+    height: 6px;
+    background: #e0e5e9;
+    border-radius: 999px;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--brown), var(--gold));
+    border-radius: 999px;
+    transition: width 0.15s linear;
+    width: 0%;
+  }
+  .progress-wrap .dist {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 4rem;
+    text-align: center;
+  }
+
+  /* ── Timeline ── */
+  .timeline {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--line);
+    transform: translateX(-50%);
+  }
+
+  .entry {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .entry.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* alternating */
+  .entry.left { flex-direction: row; }
+  .entry.right { flex-direction: row-reverse; }
+
+  .entry .photo,
+  .entry .content {
+    flex: 0 0 46%;
+  }
+
+  /* dot on the line */
+  .entry::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background: var(--gold);
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--gold);
+    z-index: 2;
+  }
+  .entry .dist-marker {
+    position: absolute;
+    left: 50%;
+    top: calc(50% + 22px);
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--brown);
+    white-space: nowrap;
+    background: var(--bg);
+    padding: 0 0.4rem;
+    z-index: 2;
+  }
+
+  /* Photo card */
+  .photo-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,.10);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    aspect-ratio: 4/3;
+    background: #e8e8e8;
+    cursor: pointer;
+  }
+  .photo-card:hover {
+    transform: scale(1.04);
+    box-shadow: 0 12px 40px rgba(0,0,0,.16);
+  }
+  .photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .photo-card:hover img {
+    transform: scale(1.08);
+  }
+
+  /* Content card */
+  .content-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.8rem 2rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,.04);
+    border: 1px solid #eee;
+  }
+  .content-card h2 {
+    font-size: 1.35rem;
+    color: var(--brown);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+  .content-card .story {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+  }
+  .content-card .story em {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* Golden quote box */
+  .golden-quote {
+    border-left: 4px solid var(--gold);
+    background: var(--gold-light);
+    padding: 0.75rem 1rem;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.9rem;
+    color: #7a5c1a;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+  }
+  .golden-quote::before {
+    content: "✦ ";
+    color: var(--gold);
+  }
+
+  /* spacer between photo and content */
+  .entry .spacer {
+    flex: 0 0 8%;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--brown-dark);
+    color: rgba(255,255,255,.7);
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+  }
+  .footer .end-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .footer strong {
+    color: var(--gold);
+    font-size: 1.1rem;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .timeline::before {
+      left: 1.5rem;
+    }
+    .entry {
+      flex-direction: column !important;
+      margin-bottom: 3.5rem;
+      padding-left: 3rem;
+    }
+    .entry .photo,
+    .entry .content {
+      flex: 0 0 100%;
+      width: 100%;
+    }
+    .entry::after {
+      left: 1.5rem;
+    }
+    .entry .dist-marker {
+      left: 1.5rem;
+      top: auto;
+      bottom: -1.6rem;
+      transform: translateX(-50%);
+    }
+    .entry .spacer {
+      display: none;
+    }
+    .photo-card {
+      margin-bottom: 1rem;
+      aspect-ratio: 3/2;
+    }
+    .content-card {
+      padding: 1.2rem 1.2rem;
+    }
+    .progress-wrap {
+      padding: 0.6rem 1rem;
+      gap: 0.5rem;
+    }
+    .hero h1 { font-size: 1.8rem; }
+  }
+
+  @media (max-width: 480px) {
+    .timeline { padding: 2rem 0.8rem 3rem; }
+    .entry { padding-left: 2.5rem; }
+    .timeline::before { left: 1.2rem; }
+    .entry::after { left: 1.2rem; width: 12px; height: 12px; }
+    .entry .dist-marker { left: 1.2rem; font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="shell-icon"><img src="camino-logo.png" alt="Camino de Santiago" style="width: 80px; height: auto;"></div>
+  <h1>朝聖之路</h1>
+  <p class="subtitle">Camino de Santiago · 葡萄牙之路</p>
+  <span class="route">Porto → Santiago → Fisterra</span>
+  <a href="index.html" style="display:inline-block;margin-top:1.2rem;color:var(--text-light);text-decoration:none;font-size:0.85rem;border-bottom:1px solid var(--line);padding-bottom:2px;position:relative;z-index:1;">← 返回個人主頁</a>
+  <div class="scroll-hint">▼ 往下滾動，展開旅程</div>
+</section>
+
+<!-- ═══════════ PROGRESS BAR ═══════════ -->
+<div class="progress-wrap" id="progressBar">
+  <span class="label-start">0 km</span>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <span class="label-end">400 km</span>
+  <span class="dist" id="currentDist">0 km</span>
+</div>
+
+<!-- ═══════════ TIMELINE ═══════════ -->
+<section class="timeline" id="timeline">
+
+  <!-- ── Entry 2: 第一個黃箭頭 ── -->
+  <div class="entry left" data-dist="31">
+    <div class="photo">
+      <div class="photo-card">
+        <img src="gallery-full/04-第一枚黃箭頭.jpg" alt="第一個黃箭頭" loading="lazy">
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="content">
+      <div class="content-card">
+        <h2>第一個黃箭頭</h2>
+        <p class="story">在路邊看到了第一個黃色箭頭——朝聖之路的標誌。這不是一個普通的箭頭，它是我每天都在尋找的答案。它告訴我：你正在正確的路上。當你懷疑的時候，抬頭看看，總有一個箭頭在等你。<em>人生也需要這樣的箭頭——不是告訴我們終點在哪裡，而是告訴我們：繼續走，你沒有迷路。</em></p>
+        <div class="golden-quote">繼續走，你沒有迷路。</div>
+      </div>
+    </div>
+    <span class="dist-marker">31 km</span>
+  </div>
+
+  <!-- ── Entry 3: 新朋友 ── -->
+  <div class="entry right" data-dist="65">
+    <div class="photo">
+      <div class="photo-card">
+        <img src="gallery-full/new_friend.jpg" alt="新朋友" loading="lazy">
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="content">
+      <div class="content-card">
+        <h2>新朋友</h2>
+        <p class="story">這是我在朝聖之路上遇到的新朋友。我們在一個小鎮的長椅上相遇，他說不同的語言，我用不同的節奏走路，但我們在同一條路上。原來，<em>真正的友誼不需要共同的身份——只需要共同的方向。</em></p>
+        <div class="golden-quote">真正的友誼不需要共同的身份——只需要共同的方向。</div>
+      </div>
+    </div>
+    <span class="dist-marker">65 km</span>
+  </div>
+
+  <!-- ── Entry 4: 第一個與陌生人午餐 ── -->
+  <div class="entry left" data-dist="100">
+    <div class="photo">
+      <div class="photo-card">
+        <img src="gallery-full/English_family_.jpg" alt="第一個與陌生人午餐" loading="lazy">
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="content">
+      <div class="content-card">
+        <h2>第一個與陌生人午餐</h2>
+        <p class="story"><strong>一對來自英國的老夫婦</strong>邀請我進他們的家，和他們一起吃午餐。桌上擺著魚、麵包和紅酒。<strong>我們用英文聊天</strong>，但真正讓我們產生連結的，<strong>不是語言，而是他們打開家門的那個瞬間</strong>。在朝聖之路上，<strong>每一個人都是陌生人，但每一個人都願意成為你的家人</strong>。那一刻我突然明白——<em>人類最古老的語言，不是文字，是善意。有些溝通，不需要翻譯。</em></p>
+        <div class="golden-quote">人類最古老的語言，不是文字，是善意。</div>
+      </div>
+    </div>
+    <span class="dist-marker">100 km</span>
+  </div>
+
+  <!-- ── Entry 5: 海岸線 ── -->
+  <div class="entry right" data-dist="131">
+    <div class="photo">
+      <div class="photo-card">
+        <img src="gallery-full/02-大西洋海岸線.jpg" alt="海岸線" loading="lazy">
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="content">
+      <div class="content-card">
+        <h2>海岸線</h2>
+        <p class="story">站在大西洋岸邊，眼前是無盡的藍。海水拍打著懸崖，像是在說：你看，我從創世之初就在這裡了。你的一點煩惱，算什麼呢？面對海洋，我才真正意識到自己的煩惱有多渺小。<em>自然是最好的心理治療師。</em></p>
+        <div class="golden-quote">自然是最好的心理治療師。</div>
+      </div>
+    </div>
+    <span class="dist-marker">131 km</span>
+  </div>
+
+  <!-- ── Entry 6: 田園風光 ── -->
+  <div class="entry left" data-dist="166">
+    <div class="photo">
+      <div class="photo-card">
+        <img src="gallery-full/11-田野風光.jpg" alt="田園風光" loading="lazy">
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="content">
+      <div class="content-card">
+        <h2>田園風光</h2>
+        <p class="story">離開海岸，走進田野。金黃色的麥田在風中搖曳，像大地的呼吸。沒有海浪的聲音，只有風聲和鳥鳴。我開始習慣這種寧靜，也開始享受這種寧靜。城市讓我們習慣喧囂，而自然教我們聆聽靜默——<em>靜默，是最深的對話。</em></p>
+        <div class="golden-quote">靜默，是最深的對話。</div>
+      </div>
+    </div>
+    <span class="dist-marker">166 km</span>
+  </div>
+
+  <!-- ── Entry 7: 森林 ── -->
+  <div class="entry right" data-dist="200">
+    <div class="photo">
+      <div class="photo-card">
+        <img src="gallery-full/森林.JPG" alt="森林" loading="lazy">
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="content">
+      <div class="content-card">
+        <h2>森林</h2>
+        <p class="story">走進了一片森林。樹木高聳，陽光從葉隙間篩落，像碎金灑在泥土上。空氣裡有松樹和潮濕泥土的氣味。在森林裡，你聽不見城市的喧囂，只能聽見自己的呼吸和心跳。那一刻我才明白：<em>有時候，迷路不是迷路——是找到了自己。</em></p>
+        <div class="golden-quote">有時候，迷路不是迷路——是找到了自己。</div>
+      </div>
+    </div>
+    <span class="dist-marker">200 km</span>
+  </div>
+
+  <!-- ── Entry 8: 休息站 ── -->
+  <div class="entry left" data-dist="234">
+    <div class="photo">
+      <div class="photo-card">
+        <img src="gallery-full/05-途中補給站.jpg" alt="休息站" loading="lazy">
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="content">
+      <div class="content-card">
+        <h2>休息站</h2>
+        <p class="story">一個簡單的木製長椅，一個生鏽的水龍頭，一塊樹蔭。這是我見過最豪華的休息站。我坐下來，脫掉鞋子，看著自己的腳——它走了這麼遠，還在堅持。我突然想：也許身體比我們想像的更強大。<em>人生不是百米衝刺，是馬拉松。學會休息，也是一種力量。</em></p>
+        <div class="golden-quote">學會休息，也是一種力量。</div>
+      </div>
+    </div>
+    <span class="dist-marker">234 km</span>
+  </div>
+
+  <!-- ── Entry 9: 午後陽光 ── -->
+  <div class="entry right" data-dist="269">
+    <div class="photo">
+      <div class="photo-card">
+        <img src="gallery-full/06-午後陽光.jpg" alt="午後陽光" loading="lazy">
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="content">
+      <div class="content-card">
+        <h2>午後陽光</h2>
+        <p class="story">下午三點，陽光穿過樹葉，灑在我的手上。那一刻沒有風，沒有聲音，只有光的溫度。我沒有拍風景——我拍的是那束光落在皮膚上的感覺。<em>有些幸福不是巨大的成功，而是午後陽光落在手上的溫度。</em></p>
+        <div class="golden-quote">有些幸福不是巨大的成功，而是午後陽光落在手上的溫度。</div>
+      </div>
+    </div>
+    <span class="dist-marker">269 km</span>
+  </div>
+
+  <!-- ── Entry 10: 旅館 ── -->
+  <div class="entry left" data-dist="308">
+    <div class="photo">
+      <div class="photo-card">
+        <img src="gallery-full/08-朝聖者驛站.jpg" alt="旅館" loading="lazy">
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="content">
+      <div class="content-card">
+        <h2>旅館</h2>
+        <p class="story">每天晚上，我走進一個陌生的旅館。裡面有來自世界各地的朝聖者——德國人、韓國人、美國人、巴西人。我們睡在同一間房，分享同樣的疲憊和期待。早上醒來，各自出發，可能再也不會見面。但那一夜，我們是一家人。<em>有些人只在你的人生裡停留一晚，卻留下了一輩子的回憶。</em></p>
+        <div class="golden-quote">有些人只在你的人生裡停留一晚，卻留下了一輩子的回憶。</div>
+      </div>
+    </div>
+    <span class="dist-marker">308 km</span>
+  </div>
+
+  <!-- ── Entry 11: 林間小路 ── -->
+  <div class="entry right" data-dist="354">
+    <div class="photo">
+      <div class="photo-card">
+        <img src="gallery-full/09-森林小徑.jpg" alt="林間小路" loading="lazy">
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="content">
+      <div class="content-card">
+        <h2>林間小路</h2>
+        <p class="story">穿過一片桉樹林。光線從樹葉間篩落，腳下的泥土柔軟而安靜。耳邊只有腳步聲和呼吸聲。那一刻，走路不再是一種移動，而是一種冥想。你不去想過去，也不去想未來——你只存在於這一步，這一步，這一步。<em>當你不再思考，你才真正開始活著。</em></p>
+        <div class="golden-quote">當你不再思考，你才真正開始活著。</div>
+      </div>
+    </div>
+    <span class="dist-marker">354 km</span>
+  </div>
+
+  <!-- ── Entry 12: 老人與海 ── -->
+  <div class="entry left" data-dist="400">
+    <div class="photo">
+      <div class="photo-card">
+        <img src="gallery-full/12-海風與浪聲.jpg" alt="老人與海" loading="lazy">
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="content">
+      <div class="content-card">
+        <h2>老人與海</h2>
+        <p class="story">在菲尼斯特雷——世界的盡頭。一個老人站在懸崖邊，看著大西洋。我不知道他是誰，但他站著的姿勢，像在跟大海對話。我在他旁邊坐下來，看了同樣的海。那一刻我理解了什麼是「到達」——<em>到達不是終點，是學會與時間和平相處。老人的海是等待，而我的海，是出發。</em></p>
+        <div class="golden-quote">到達不是終點，是學會與時間和平相處。</div>
+      </div>
+    </div>
+    <span class="dist-marker">400 km</span>
+  </div>
+
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <span class="end-icon"><img src="camino-logo.png" alt="Camino de Santiago" style="width: 60px; height: auto;"></span>
+  <strong>Buen Camino</strong>
+  <p style="margin-top:0.5rem;">Porto → Santiago de Compostela → Fisterra · 400 km</p>
+  <p style="margin-top:0.3rem;font-size:0.8rem;opacity:0.5;">每一步，都是抵達。</p>
+</footer>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script>
+(function () {
+  const entries = document.querySelectorAll('.entry');
+  const progressFill = document.getElementById('progressFill');
+  const currentDist = document.getElementById('currentDist');
+
+  /* ── Intersection Observer: fade-in ── */
+  const observer = new IntersectionObserver(function (obs) {
+    obs.forEach(function (o) {
+      if (o.isIntersecting) {
+        o.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -40px 0px' });
+
+  entries.forEach(function (el) { observer.observe(el); });
+
+  /* ── Progress bar on scroll ── */
+  function updateProgress() {
+    const timeline = document.getElementById('timeline');
+    const tlTop = timeline.offsetTop;
+    const tlHeight = timeline.offsetHeight;
+    const scrollY = window.pageYOffset;
+    const viewH = window.innerHeight;
+
+    let progress = (scrollY + viewH / 2 - tlTop) / tlHeight;
+    progress = Math.max(0, Math.min(1, progress));
+
+    const dist = Math.round(progress * 400);
+    progressFill.style.width = (progress * 100) + '%';
+    currentDist.textContent = dist + ' km';
+  }
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress, { passive: true });
+  updateProgress();
+})();
+</script>
+
+</body>
+</html>
