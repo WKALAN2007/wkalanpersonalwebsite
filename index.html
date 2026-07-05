@@ -13,12 +13,12 @@
 
   <style>
     /* ========================================
-       CSS Variables — 大地色系 + 金色點綴
+       CSS Variables — 大地色系https://file+.vscode-resource.vscode-cdn.net/Users/wkalan/Downloads/personal%20website%20interview.jpg?version%3D1783219920697 + 金色點綴
        ======================================== */
-    :root {
+    :root {https://file+.vscode-resource.vscode-cdn.net/Users/wkalan/Downloads/personal%20website%20interview.jpg?version%3D1783219920697
       --color-bg:         #FBF7F2;   /* 米白 */
       --color-surface:    #FFFFFF;
-      --color-warm-gray:  #E8E0D5;   /* 暖灰 */
+      --color-warm-gray:  #E8E0D5;   /* 暖灰 */https://file+.vscode-resource.vscode-cdn.net/Users/wkalan/Desktop/sport%20moment%202%20personal%20website.JPG?version%3D1783219850519
       --color-brown:      #5C4033;   /* 深棕 */
       --color-brown-light:#8B7355;   /* 淺棕 */
       --color-gold:       #C8963E;   /* 金色點綴 */
@@ -213,7 +213,7 @@
       text-align: center; font-weight: 500;
     }
     .sports__photos {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 24px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 24px;
     }
 
     /* ========================================
@@ -302,8 +302,7 @@
     .interest-card__icon { font-size: 2.5rem; margin-bottom: 16px; }
     .interest-card__title { font-size: 1.15rem; margin-bottom: 8px; }
     .interest-card__desc { font-size: 0.9rem; color: var(--color-text-light); }
-    .interest-card__more { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--color-border); text-align: left; }
-    .interest-card__more--open { display: block; }
+    .interest-card__more { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--color-border); text-align: left; }
     .interest-card__more p { font-size: 0.88rem; color: var(--color-text-light); }
     .interest-card__photo { margin-top: 16px; }
 
@@ -413,15 +412,15 @@
        ======================================== -->
   <nav class="nav" id="nav" role="navigation" aria-label="主導航">
     <div class="nav__inner">
-      <a href="#home" class="nav__logo">If You Want to Know Me</a>
+      <a href="#home" class="nav__logo" style="display: flex; align-items: center; gap: 8px;"><img src="camino-logo.png" alt="" style="width: 28px; height: 28px; object-fit: contain;"> If You Want to Know Me</a>
       <button class="nav__toggle" id="navToggle" aria-label="切換選單" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <div class="nav__links" id="navLinks" role="menubar">
         <a href="#about" role="menuitem">關於我</a>
-        <a href="#sports" role="menuitem">運動成就</a>
-        <a href="#camino" role="menuitem">朝聖之路</a>
         <a href="#interests" role="menuitem">興趣</a>
+        <a href="#camino" role="menuitem">朝聖之路</a>
+        <a href="#sports" role="menuitem">運動成就</a>
         <a href="#library" role="menuitem">My Library</a>
         <a href="#contact" role="menuitem">聯絡</a>
       </div>
@@ -477,6 +476,163 @@
             閱讀更多 <span id="aboutArrow">→</span>
           </button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       Interests
+       ======================================== -->
+  <section class="section" id="interests">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">Interests</p>
+        <h2 class="section__title">興趣</h2>
+        <div class="section__divider"></div>
+      </div>
+
+      <div class="interests__grid">
+
+        <!-- 閱讀 -->
+        <a href="#library" style="text-decoration: none; color: inherit; display: block;">
+        <div class="interest-card reveal" id="interestReading">
+          <div class="interest-card__icon">📚</div>
+          <h3 class="interest-card__title">閱讀</h3>
+          <p class="interest-card__desc">推理、經典、政治寓言與投資智慧</p>
+          <div class="interest-card__more" id="interestReadingMore">
+            <p>我的閱讀世界橫跨東西、貫穿古今，從文學到哲學、從政治到投資，形成獨特的思維版圖。最愛東野圭吾的推理與人性探索、歐威爾的政治寓言、芒格的投資哲學，以及中國四大名著的宏大敘事。</p>
+          </div>
+          <div class="interest-card__photo">
+            <div class="photo-placeholder" style="background-image: url('reading.jpg'); background-size: cover; background-position: center; border: none; aspect-ratio: 16/10;">書架或閱讀相關</div>
+          </div>
+        </div>
+        </a>
+
+        <!-- 運動 -->
+        <a href="#sports" style="text-decoration: none; color: inherit; display: block;">
+        <div class="interest-card reveal" id="interestSports">
+          <div class="interest-card__icon">🏃‍♂️</div>
+          <h3 class="interest-card__title">運動</h3>
+          <p class="interest-card__desc">追逐破曉</p>
+          <div class="interest-card__more" id="interestSportsMore">
+            <p>每日跑步已成為生活的一部分——不只是一種鍛煉，更是一種冥想。無論晴天雨天，跑道都在那裡。賽艇則教會了我團隊合作的重要性：一艘艇上的每個人必須節奏一致，才能劃得快、劃得遠。這兩項運動塑造了我的紀律與韌性。</p>
+          </div>
+          <div class="interest-card__photo">
+            <div class="photo-placeholder" style="background-image: url('sports.jpg'); background-size: cover; background-position: center; border: none; aspect-ratio: 427/640; max-width: 300px; margin: 0 auto;">跑步或賽艇相關</div>
+          </div>
+        </div>
+        </a>
+
+        <!-- 背包旅行 -->
+        <a href="#camino" style="text-decoration: none; color: inherit; display: block;">
+        <div class="interest-card reveal" id="interestTravel">
+          <div class="interest-card__icon">🎒</div>
+          <h3 class="interest-card__title">背包旅行</h3>
+          <p class="interest-card__desc">戶外探索 · 獨立規劃</p>
+          <div class="interest-card__more" id="interestTravelMore">
+            <p>熱愛戶外探索，享受背起背包說走就走的自由。每一次旅行都是一次獨立的項目管理——規劃路線、預算控制、突發狀況應對。背包旅行教會我的不僅是如何看地圖，更是如何在陌生環境中保持冷靜和樂觀。</p>
+          </div>
+          <div class="interest-card__photo">
+            <div class="photo-placeholder" style="background-image: url('backpack.jpg'); background-size: cover; background-position: center; border: none; aspect-ratio: 16/10;">旅行或戶外探險</div>
+          </div>
+        </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       The Camino — 朝聖之路
+       ======================================== -->
+  <section class="section section--alt" id="camino">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">The Camino</p>
+        <h2 class="section__title">朝聖之路 · Camino de Santiago</h2>
+        <div class="section__divider"></div>
+      </div>
+
+      <!-- 路線地圖 -->
+      <div class="camino__map reveal" style="background: none; border: none; overflow: hidden; border-radius: var(--radius-lg);">
+        <img src="Ways_of_St._James_in_Europe.png" alt="聖雅各之路歐洲路線圖" style="width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius-lg); background: #fff;">
+      </div>
+
+      <!-- 關鍵數據 -->
+      <div class="camino__stats reveal">
+        <div class="camino__stat">
+          <div class="camino__stat-number">400</div>
+          <div class="camino__stat-label">公里</div>
+        </div>
+        <div class="camino__stat">
+          <div class="camino__stat-number">15</div>
+          <div class="camino__stat-label">天</div>
+        </div>
+        <div class="camino__stat">
+          <div class="camino__stat-number">20-30</div>
+          <div class="camino__stat-label">每日公里</div>
+        </div>
+      </div>
+
+      <!-- 學到的能力 -->
+      <div class="camino__skills reveal">
+        <div class="camino__skill">
+          <div class="camino__skill-icon">💪</div>
+          <div class="camino__skill-name">抗壓能力</div>
+        </div>
+        <div class="camino__skill">
+          <div class="camino__skill-icon">🔄</div>
+          <div class="camino__skill-name">應變能力</div>
+        </div>
+        <div class="camino__skill">
+          <div class="camino__skill-icon">🎯</div>
+          <div class="camino__skill-name">堅持到底</div>
+        </div>
+      </div>
+
+      <!-- 文字描述 -->
+      <div class="reveal" style="text-align: center;">
+        <p style="color: var(--color-text-light); max-width: 640px; margin: 0 auto;">
+          2025年完成西班牙聖雅各之路（Camino de Santiago）葡萄牙沿海之路全程徒步——400公里，歷時約15天。每日背負約10公斤行李，步行20-30公里，面對身體疼痛、天氣變化及各種突發狀況。這段經歷培養了卓越的抗壓能力、應變能力與堅持到底的意志力。
+        </p>
+      </div>
+
+      <!-- 閱讀完整故事 -->
+      <div style="text-align: center; margin-top: 24px;" class="reveal">
+        <button class="btn-outline" id="caminoReadMore" aria-expanded="false">
+          閱讀完整故事 <span id="caminoArrow">↓</span>
+        </button>
+      </div>
+      <div class="camino__story reveal" id="caminoStory" style="max-width: 680px; margin: 24px auto 0;">
+        <p>第一天，我站在葡萄牙的 Porto，背著10公斤的背包，沿著大西洋海岸線向北出發。海風伴隨腳下的沙灘與礁石，第一段路程就給了我難忘的體驗——沿著海岸線徒步，風景壯麗卻也充滿挑戰。</p>
+        <p>接下來的每一天都是全新的體驗：水泡、肌肉酸痛、突如其來的海風與暴雨、語言不通。但也是每一天，都有陌生人對我說「Bom Caminho」，與我分享他們的食物、故事和鼓勵。</p>
+        <p>第15天，當我站在 Santiago de Compostela 大教堂前時，我意識到最重要的不是在終點的那一瞬間，而是這400公里中每一次選擇繼續前行的決定。</p>
+        <p>這段經歷教會了我一件事：困難從來不是阻礙，而是塑造你的工具。現在的我，面對任何挑戰都能冷靜地說：「我在Camino上走過更難的路——這不算什麼。」</p>
+      </div>
+
+      <!-- 旅途見證 · Photo Gallery 展示區 -->
+      <div class="reveal" style="margin-top: 48px;">
+        <h3 style="text-align: center; font-size: 1.4rem; color: var(--color-brown); margin-bottom: 28px;">📷 旅途見證 · Photo Gallery</h3>
+
+        <!-- 大圖展示區 -->
+        <div class="camino__map reveal" style="background: none; border: none; aspect-ratio: 16/8; overflow: hidden; border-radius: var(--radius-lg); margin-bottom: 20px;">
+          <img src="camino-2.jpg" alt="葡萄牙沿海之路全景" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg);">
+        </div>
+
+        <!-- 照片網格展示 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px;">
+          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 海岸線" style="background-image: url('camino-1.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">海岸線景觀</div>
+          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 沿途小鎮" style="background-image: url('camino-4.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">沿途小鎮</div>
+          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 朝聖標誌" style="background-image: url('camino-3.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">朝聖標誌</div>
+        </div>
+
+        <div style="text-align: center; margin-top: 32px;">
+          <a href="camino-timeline.html" style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 40px; font-size: 1.05rem; font-weight: 700; color: #fff; background: linear-gradient(135deg, #C8963E, #8B6914); border-radius: 50px; text-decoration: none; box-shadow: 0 4px 20px rgba(200, 150, 62, 0.35); transition: all 300ms ease; letter-spacing: 0.02em;"><img src="camino-logo.png" alt="" style="width: 28px; height: 28px; object-fit: contain;"> 點擊進入路途 →</a>
+        </div>
+      </div>
+
+      <div class="sports__note reveal" style="margin-top: 24px;">
+        * 朝聖之路完成證書可提供官方文件以資證明
       </div>
     </div>
   </section>
@@ -582,170 +738,17 @@
         * 所有獎項均可提供官方證書證明
       </div>
 
-      <!-- 獎牌/比賽照片預留位置 -->
+      <!-- 比賽照片 -->
       <div class="sports__photos reveal">
-        <div data-lightbox="比賽獎項" style="cursor: pointer; border-radius: var(--radius-md); overflow: hidden; max-width: 600px;">
-          <img src="awards.jpg" alt="比賽獎項" style="width: 100%; height: auto; display: block; border-radius: var(--radius-md);">
+        <div data-lightbox="比賽獎項" style="cursor: pointer; border-radius: var(--radius-md); overflow: hidden;">
+          <img src="awards.jpg" alt="比賽獎項" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; display: block; border-radius: var(--radius-md);">
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================
-       The Camino — 朝聖之路
-       ======================================== -->
-  <section class="section section--alt" id="camino">
-    <div class="container">
-      <div class="section__header reveal">
-        <p class="section__label">The Camino</p>
-        <h2 class="section__title">朝聖之路 · Camino de Santiago</h2>
-        <div class="section__divider"></div>
-      </div>
-
-      <!-- 路線地圖 -->
-      <div class="camino__map reveal" style="background: none; border: none; overflow: hidden; border-radius: var(--radius-lg);">
-        <img src="Ways_of_St._James_in_Europe.png" alt="聖雅各之路歐洲路線圖" style="width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius-lg); background: #fff;">
-      </div>
-
-      <!-- 關鍵數據 -->
-      <div class="camino__stats reveal">
-        <div class="camino__stat">
-          <div class="camino__stat-number">400</div>
-          <div class="camino__stat-label">公里</div>
+        <div data-lightbox="賽場風采" style="cursor: pointer; border-radius: var(--radius-md); overflow: hidden;">
+          <img src="sport-moment-2.jpg" alt="賽場風采" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; display: block; border-radius: var(--radius-md);">
         </div>
-        <div class="camino__stat">
-          <div class="camino__stat-number">15</div>
-          <div class="camino__stat-label">天</div>
+        <div data-lightbox="訪問照片" style="cursor: pointer; border-radius: var(--radius-md); overflow: hidden;">
+          <img src="interview.jpg" alt="訪問照片" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; display: block; border-radius: var(--radius-md);">
         </div>
-        <div class="camino__stat">
-          <div class="camino__stat-number">20-30</div>
-          <div class="camino__stat-label">每日公里</div>
-        </div>
-      </div>
-
-      <!-- 學到的能力 -->
-      <div class="camino__skills reveal">
-        <div class="camino__skill">
-          <div class="camino__skill-icon">💪</div>
-          <div class="camino__skill-name">抗壓能力</div>
-        </div>
-        <div class="camino__skill">
-          <div class="camino__skill-icon">🔄</div>
-          <div class="camino__skill-name">應變能力</div>
-        </div>
-        <div class="camino__skill">
-          <div class="camino__skill-icon">🎯</div>
-          <div class="camino__skill-name">堅持到底</div>
-        </div>
-      </div>
-
-      <!-- 文字描述 -->
-      <div class="reveal" style="text-align: center;">
-        <p style="color: var(--color-text-light); max-width: 640px; margin: 0 auto;">
-          2025年完成西班牙聖雅各之路（Camino de Santiago）葡萄牙沿海之路全程徒步——400公里，歷時約15天。每日背負約10公斤行李，步行20-30公里，面對身體疼痛、天氣變化及各種突發狀況。這段經歷培養了卓越的抗壓能力、應變能力與堅持到底的意志力。
-        </p>
-      </div>
-
-      <!-- 閱讀完整故事 -->
-      <div style="text-align: center; margin-top: 24px;" class="reveal">
-        <button class="btn-outline" id="caminoReadMore" aria-expanded="false">
-          閱讀完整故事 <span id="caminoArrow">↓</span>
-        </button>
-      </div>
-      <div class="camino__story reveal" id="caminoStory" style="max-width: 680px; margin: 24px auto 0;">
-        <p>第一天，我站在葡萄牙的 Porto，背著10公斤的背包，沿著大西洋海岸線向北出發。海風伴隨腳下的沙灘與礁石，第一段路程就給了我難忘的體驗——沿著海岸線徒步，風景壯麗卻也充滿挑戰。</p>
-        <p>接下來的每一天都是全新的體驗：水泡、肌肉酸痛、突如其來的海風與暴雨、語言不通。但也是每一天，都有陌生人對我說「Bom Caminho」，與我分享他們的食物、故事和鼓勵。</p>
-        <p>第15天，當我站在 Santiago de Compostela 大教堂前時，我意識到最重要的不是在終點的那一瞬間，而是這400公里中每一次選擇繼續前行的決定。</p>
-        <p>這段經歷教會了我一件事：困難從來不是阻礙，而是塑造你的工具。現在的我，面對任何挑戰都能冷靜地說：「我在Camino上走過更難的路——這不算什麼。」</p>
-      </div>
-
-      <!-- 沿途照片 -->
-      <div class="camino__photos reveal">
-        <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路起點 Porto" style="background-image: url('camino-1.jpg'); background-size: cover; background-position: center; border: none; color: transparent;">起點 Porto</div>
-        <div class="photo-placeholder" data-lightbox="沿途海岸風景" style="background-image: url('camino-2.jpg'); background-size: cover; background-position: center; border: none; color: transparent;">沿途海岸風景</div>
-        <div class="photo-placeholder" data-lightbox="朝聖之路打卡點" style="background-image: url('camino-2.jpg'); background-size: cover; background-position: center; border: none; color: transparent;">打卡點/里程碑</div>
-        <div class="photo-placeholder" data-lightbox="終點 Santiago 大教堂" style="background-image: url('camino-3.jpg'); background-size: cover; background-position: center; border: none; color: transparent;">終點 Santiago 大教堂</div>
-      </div>
-
-      <!-- 旅途見證 · Photo Gallery 展示區 -->
-      <div class="reveal" style="margin-top: 48px;">
-        <h3 style="text-align: center; font-size: 1.4rem; color: var(--color-brown); margin-bottom: 28px;">📷 旅途見證 · Photo Gallery</h3>
-
-        <!-- 大圖展示區 -->
-        <div class="camino__map reveal" style="background: none; border: none; aspect-ratio: 16/8; overflow: hidden; border-radius: var(--radius-lg); margin-bottom: 20px;">
-          <img src="camino-2.jpg" alt="葡萄牙沿海之路全景" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg);">
-        </div>
-
-        <!-- 照片網格展示 -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px;">
-          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 海岸線" style="background-image: url('camino-1.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">海岸線景觀</div>
-          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 沿途小鎮" style="background-image: url('camino-4.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">沿途小鎮</div>
-          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 朝聖標誌" style="background-image: url('camino-3.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">朝聖標誌</div>
-          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 住宿掠影" style="background-image: url('sports-photo.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">住宿掠影</div>
-          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 每日足跡" style="background-image: url('about.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">每日足跡</div>
-          <div class="photo-placeholder" data-lightbox="葡萄牙沿海之路 · 旅程紀錄" style="background-image: url('hero.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 1/1;">旅程紀錄</div>
-        </div>
-      </div>
-
-      <div class="sports__note reveal" style="margin-top: 24px;">
-        * 朝聖之路完成證書可提供官方文件以資證明
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================
-       Interests
-       ======================================== -->
-  <section class="section" id="interests">
-    <div class="container">
-      <div class="section__header reveal">
-        <p class="section__label">Interests</p>
-        <h2 class="section__title">興趣</h2>
-        <div class="section__divider"></div>
-      </div>
-
-      <div class="interests__grid">
-
-        <!-- 閱讀 -->
-        <div class="interest-card reveal" id="interestReading">
-          <div class="interest-card__icon">📚</div>
-          <h3 class="interest-card__title">閱讀</h3>
-          <p class="interest-card__desc">推理、經典、政治寓言與投資智慧</p>
-          <div class="interest-card__more" id="interestReadingMore">
-            <p>我的閱讀世界橫跨東西、貫穿古今，從文學到哲學、從政治到投資，形成獨特的思維版圖。最愛東野圭吾的推理與人性探索、歐威爾的政治寓言、芒格的投資哲學，以及中國四大名著的宏大敘事。</p>
-            <p style="margin-top: 8px;"><a href="#library" style="color: var(--color-gold); font-weight: 600;">→ 瀏覽我的完整書庫 My Library</a></p>
-          </div>
-          <div class="interest-card__photo">
-            <div class="photo-placeholder" data-lightbox="書架/閱讀照片" style="background-image: url('reading.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 16/10;">書架或閱讀相關</div>
-          </div>
-        </div>
-
-        <!-- 運動 -->
-        <div class="interest-card reveal" id="interestSports">
-          <div class="interest-card__icon">🏃‍♂️</div>
-          <h3 class="interest-card__title">運動</h3>
-          <p class="interest-card__desc">追逐破曉</p>
-          <div class="interest-card__more" id="interestSportsMore">
-            <p>每日跑步已成為生活的一部分——不只是一種鍛煉，更是一種冥想。無論晴天雨天，跑道都在那裡。賽艇則教會了我團隊合作的重要性：一艘艇上的每個人必須節奏一致，才能劃得快、劃得遠。這兩項運動塑造了我的紀律與韌性。</p>
-          </div>
-          <div class="interest-card__photo">
-            <div class="photo-placeholder" data-lightbox="跑步/賽艇照片" style="background-image: url('sports.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 427/640; max-width: 300px; margin: 0 auto;">跑步或賽艇相關</div>
-          </div>
-        </div>
-
-        <!-- 背包旅行 -->
-        <div class="interest-card reveal" id="interestTravel">
-          <div class="interest-card__icon">🎒</div>
-          <h3 class="interest-card__title">背包旅行</h3>
-          <p class="interest-card__desc">戶外探索 · 獨立規劃</p>
-          <div class="interest-card__more" id="interestTravelMore">
-            <p>熱愛戶外探索，享受背起背包說走就走的自由。每一次旅行都是一次獨立的項目管理——規劃路線、預算控制、突發狀況應對。背包旅行教會我的不僅是如何看地圖，更是如何在陌生環境中保持冷靜和樂觀。</p>
-          </div>
-          <div class="interest-card__photo">
-            <div class="photo-placeholder" data-lightbox="旅行照片" style="background-image: url('backpack.jpg'); background-size: cover; background-position: center; border: none; color: transparent; aspect-ratio: 16/10;">旅行或戶外探險</div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -945,9 +948,9 @@
       </div>
       <div class="footer__links">
         <a href="#about">關於我</a><span>·</span>
-        <a href="#sports">運動成就</a><span>·</span>
-        <a href="#camino">朝聖之路</a><span>·</span>
         <a href="#interests">興趣</a><span>·</span>
+        <a href="#camino">朝聖之路</a><span>·</span>
+        <a href="#sports">運動成就</a><span>·</span>
         <a href="#library">My Library</a><span>·</span>
         <a href="#contact">聯絡</a>
       </div>
