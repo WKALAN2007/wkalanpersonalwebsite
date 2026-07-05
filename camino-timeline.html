@@ -628,6 +628,12 @@
     currentDist.textContent = dist + ' km';
   }
 
+  // Prevent browser from restoring old scroll position on refresh
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+
   window.addEventListener('scroll', updateProgress, { passive: true });
   window.addEventListener('resize', updateProgress, { passive: true });
   updateProgress();
