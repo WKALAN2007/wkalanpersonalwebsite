@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alan Wang — AI-Powered Services · 寫作 · 翻譯 · 數據整理 · 簡報設計</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --success: #10b981;
+            --gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1), transparent 60%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.15);
+            color: #a5b4fc;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .gradient-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Services */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .service-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .service-price span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* Process */
+        .process {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-top: 2rem;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: var(--gradient);
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .process-step h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card p {
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-role {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            margin: 2rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* About */
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .highlight-box h3 {
+            margin-bottom: 1rem;
+        }
+
+        .highlight-list {
+            list-style: none;
+        }
+
+        .highlight-list li {
+            padding: 0.5rem 0;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .highlight-list li:last-child {
+            border-bottom: none;
+        }
+
+        .highlight-list li::before {
+            content: '▸ ';
+            color: var(--primary);
+        }
+
+        /* Experience */
+        .experience-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-header h4 {
+            font-size: 1.1rem;
+        }
+
+        .experience-date {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .experience-company {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .skill-category h4 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--text);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        /* Language */
+        .language-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .language-name {
+            width: 80px;
+            font-weight: 600;
+        }
+
+        .language-level {
+            flex: 1;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .language-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .stats {
+                gap: 1.5rem;
+            }
+            .section {
+                padding: 3rem 1rem;
+            }
+            .process {
+                padding: 1.5rem;
+            }
+            .cta-section {
+                margin: 1rem;
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">HKU · 三語 · AI-Powered</div>
+            <h1>
+                Hi，我係 <span class="gradient-text">Alan</span>
+            </h1>
+            <p>
+                香港大學理學士一年級生。粵語、普通話、英文三語流利。
+                我用 AI 工具加速工作，再親自把關每一份交付。
+                你得到的是：速度快 + 質量好 + 價錢合理的服務。
+            </p>
+            <div class="cta-group">
+                <a href="#services" class="btn-primary">查看我的服務</a>
+                <a href="#about" class="btn-secondary">了解更多 →</a>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">工作語言</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6+</div>
+                    <div class="stat-label">實戰經驗</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24h</div>
+                    <div class="stat-label">最快交付</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="services">
+        <h2 class="section-title">我提供的<span class="gradient-text">服務</span></h2>
+        <p class="section-subtitle">每項服務都經過 AI 初稿 + 人工精修，質量絕不妥協</p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📝</div>
+                <h3>內容寫作</h3>
+                <p>博客文章、網站內容、產品介紹。AI 輔助調研 + 我親自潤色，讀起來自然流暢，唔會有機械感。中英文均可。</p>
+                <div class="service-price">$15 <span>起 / 500字</span></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>數據整理 & 報表</h3>
+                <p>用 Excel / Google Sheets 幫你清理數據、做樞紐分析、整靚圖表。有 SPSS 基礎，問卷數據都識處理。</p>
+                <div class="service-price">$15 <span>起 / 小時</span></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📑</div>
+                <h3>簡報 & 文書設計</h3>
+                <p>PowerPoint / Canva 專業簡報製作、報告排版、活動計劃書。擅長將數據轉化為圖像，一目了然。</p>
+                <div class="service-price">$20 <span>起 / 份</span></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>翻譯 & 本地化</h3>
+                <p>粵語 / 普通話 / 英文三語翻譯。商務文件、網站、社交媒體內容。AI 輔助 + 人工校對，準確又地道。</p>
+                <div class="service-price">$10 <span>起 / 500字</span></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>社交媒體內容</h3>
+                <p>Instagram / 小紅書內容策劃與排版。有實際操作經驗，幫你規劃一個月的貼文 + 標籤 + 發佈日曆。</p>
+                <div class="service-price">$25 <span>起 / 10條</span></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📋</div>
+                <h3>學術支援</h3>
+                <p>文獻回顧整理、報告撰寫協助、問卷設計、基礎 SPSS 數據分析。自己係大學生，最明白你嘅需要。</p>
+                <div class="service-price">$15 <span>起 / 小時</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="section">
+        <h2 class="section-title">我的工作<span class="gradient-text">流程</span></h2>
+        <p class="section-subtitle">AI速度 + 人工质量 = 最好的结果</p>
+
+        <div class="process">
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h4>需求沟通</h4>
+                    <p>告诉我你需要什么，目标受众是谁，有什么特殊要求</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h4>AI初稿生成</h4>
+                    <p>使用最先进的AI工具进行调研和初稿生成，效率拉满</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h4>人工精修</h4>
+                    <p>我逐句审核、润色、事实核查，确保质量过关</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h4>交付 & 修改</h4>
+                    <p>按时交付，不满意包修改，直到你满意为止</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+        <h2 class="section-title">關於<span class="gradient-text">我</span></h2>
+
+        <div class="about-section">
+            <div class="about-text">
+                <h3>香港大學理學士一年級生</h3>
+                <p>
+                    我係 Alan，而家喺香港大學讀緊書。由五星級酒店宴會廳到地盤裝修工地，
+                    由學術研究到補習教學 —— 我習慣咗喺唔同環境入面快速適應、認真做事。
+                </p>
+                <p>
+                    三語流利（粵語母語、普通話流利、英文良好），加上識用最新嘅 AI 工具，
+                    我可以俾到你又快又好、價錢合理嘅服務。
+                </p>
+                <p>
+                    你可以去我嘅個人網站了解更多：
+                    <a href="https://wkalan2007.github.io/wkalanpersonalwebsite" target="_blank" style="color: var(--primary);">
+                        wkalan2007.github.io/wkalanpersonalwebsite
+                    </a>
+                </p>
+            </div>
+
+            <div class="highlight-box">
+                <h3>點解揀我？</h3>
+                <ul class="highlight-list">
+                    <li>AI 加速 + 人工把關，唔係純機器出品</li>
+                    <li>三語能力，中英內容都搞得掂</li>
+                    <li>有多元實戰經驗，唔係紙上談兵</li>
+                    <li>HKU 學生，學術底子紮實</li>
+                    <li>負責任、準時交貨、包修改</li>
+                    <li>做過酒店服務業，溝通態度專業</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="section">
+        <h2 class="section-title">工作<span class="gradient-text">經歷</span></h2>
+        <p class="section-subtitle">由國際級酒店到地盤工地，每一份工都認真對待</p>
+
+        <div class="experience-card">
+            <div class="experience-header">
+                <h4>香港大學 · 研究助理</h4>
+                <span class="experience-date">2026年1月 - 現在</span>
+            </div>
+            <div class="experience-company">幼兒教育研究項目</div>
+            <p>負責資料整理與數據分析，使用 Excel / SPSS 進行數據清理與初步統計分析，協助文獻回顧與研究報告撰寫。</p>
+        </div>
+
+        <div class="experience-card">
+            <div class="experience-header">
+                <h4>私人補習導師</h4>
+                <span class="experience-date">2026年1月 - 現在</span>
+            </div>
+            <div class="experience-company">中學數學一對一教學</div>
+            <p>善於將複雜理論轉化為學生易於理解的語言，根據學生程度客製化教學進度，學生進步率 90%+。</p>
+        </div>
+
+        <div class="experience-card">
+            <div class="experience-header">
+                <h4>地盤裝修 · 幫手</h4>
+                <span class="experience-date">2025年7月 - 8月</span>
+            </div>
+            <div class="experience-company">暑期 / 兼職</div>
+            <p>協助裝修工程進行，包括搬運物料、場地清理、工具管理。面對體力勞動與高溫環境，培養了堅韌與責任感。</p>
+        </div>
+
+        <div class="experience-card">
+            <div class="experience-header">
+                <h4>萬豪酒店 (Ocean Park) · 侍應</h4>
+                <span class="experience-date">2024 - 2025</span>
+            </div>
+            <div class="experience-company">國際級五星級酒店（兼職）</div>
+            <p>於宴會廳及餐廳為來自世界各地的賓客提供餐飲服務，熟悉酒店服務標準與專業禮儀，培養了國際視野與跨文化溝通能力。</p>
+        </div>
+
+        <div class="experience-card">
+            <div class="experience-header">
+                <h4>翠園 · 侍應</h4>
+                <span class="experience-date">2023 - 2024</span>
+            </div>
+            <div class="experience-company">兼職</div>
+            <p>在午市/晚市高壓時段同時服務 10+ 張枱，處理顧客投訴與特殊需求，與廚房團隊緊密協作確保出餐流程順暢。</p>
+        </div>
+
+        <div class="experience-card">
+            <div class="experience-header">
+                <h4>油尖旺區傑出學生活動 · 統籌</h4>
+                <span class="experience-date">2024</span>
+            </div>
+            <div class="experience-company">活動協作</div>
+            <p>協助統籌 200+ 名學生與志工參與活動，負責流程規劃、時間管理與現場應變，協調多個單位確保活動順利完成。</p>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section">
+        <h2 class="section-title">技能 &<span class="gradient-text">語言</span></h2>
+
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h4>數據 & 文書</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Excel / Google Sheets</span>
+                    <span class="skill-tag">樞紐分析</span>
+                    <span class="skill-tag">圖表製作</span>
+                    <span class="skill-tag">SPSS 基礎</span>
+                    <span class="skill-tag">問卷設計</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4>設計 & 內容</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Canva 設計</span>
+                    <span class="skill-tag">PowerPoint</span>
+                    <span class="skill-tag">Word / Docs</span>
+                    <span class="skill-tag">IG / 小紅書</span>
+                    <span class="skill-tag">內容策劃</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4>專案管理</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Trello</span>
+                    <span class="skill-tag">Notion</span>
+                    <span class="skill-tag">流程規劃</span>
+                    <span class="skill-tag">時間管理</span>
+                    <span class="skill-tag">現場應變</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4>語言能力</h4>
+                <div class="language-bar">
+                    <span class="language-name">粵語</span>
+                    <div class="language-level"><div class="language-fill" style="width:100%"></div></div>
+                    <span style="font-size:0.85rem;color:var(--text-muted)">母語</span>
+                </div>
+                <div class="language-bar">
+                    <span class="language-name">普通話</span>
+                    <div class="language-level"><div class="language-fill" style="width:90%"></div></div>
+                    <span style="font-size:0.85rem;color:var(--text-muted)">流利</span>
+                </div>
+                <div class="language-bar">
+                    <span class="language-name">English</span>
+                    <div class="language-level"><div class="language-fill" style="width:75%"></div></div>
+                    <span style="font-size:0.85rem;color:var(--text-muted)">Good</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="contact">
+        <h2>準備好<span class="gradient-text">開始</span>未？</h2>
+        <p>話俾我知你需要咩，24 小時內回覆你。</p>
+        <div class="cta-group">
+            <a href="mailto:wangkwa2007@gmail.com" class="btn-primary">Email 我</a>
+            <a href="https://wkalan2007.github.io/wkalanpersonalwebsite" class="btn-secondary" target="_blank">睇我個人網站 →</a>
+            <a href="tel:+85265484063" class="btn-secondary">WhatsApp: 65484063</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>Alan Wang · 香港大學 · wangkwa2007@gmail.com · 65484063</p>
+    </footer>
+
+</body>
+</html>
